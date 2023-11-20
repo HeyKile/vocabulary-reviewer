@@ -47,12 +47,11 @@ public class Trie {
      * @return true if sucessful, false otherwise
      */
     public boolean useDictionaryFile(String fileName){
-        String line = "fortnite";
+        String line;
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
             while((line = br.readLine()) != null){
                 int spaceIndex = line.indexOf(" ");
                 if(spaceIndex > -1){
-                    System.err.println("Current line: " + line);
                     String word = line.substring(0, spaceIndex);
                     String def = line.substring(spaceIndex + 1);
                     Trie.insert(this, word, def);
