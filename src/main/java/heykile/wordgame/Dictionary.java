@@ -16,18 +16,6 @@ public class Dictionary {
         wordCount = 0;
     }
 
-    public boolean inputDictionary(String fileName){
-        try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
-            String line;
-            while((line = br.readLine()) != null){
-                dictTrie.insert(dictTrie.root, line);
-            }
-        }
-        catch(IOException e){
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
+    
 
 }

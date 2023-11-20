@@ -7,30 +7,80 @@
 
 package heykile.wordgame;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Trie {
 
-    final int alphabetSize = 26;
+    final static int alphabetSize = 26;
     TrieNode root;
     int wordCount;
 
-    public Trie(){
-        root = new TrieNode();
-        wordCount = 0;
-    }
-
-    class TrieNode{
+    // class for Trie nodes
+    static class TrieNode{
         TrieNode[] children;
         int wordCount;
+        String definition;
 
         public TrieNode(){
             children = new TrieNode[alphabetSize];
             wordCount = 0;
+            definition = null;
         }
     }
+
+    public Trie(){
+        this(new TrieNode());
+    }
+
+    public Trie(TrieNode node){
+        root = node;
+        wordCount = 0;
+    }
+
+    /**
+     * Builds a trie dictionary using an input file.
+     * Dictionary entries must be in the form "word this is the definiton".
+     * 
+     * @param fileName the path to the input file
+     * @return true if sucessful, false otherwise
+     */
+    public boolean useDictionaryFile(String fileName){
+        String line = "fortnite";
+        try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
+            while((line = br.readLine()) != null){
+                int spaceIndex = line.indexOf(" ");
+                if(spaceIndex > -1){
+                    System.err.println("Current line: " + line);
+                    String word = line.substring(0, spaceIndex);
+                    String def = line.substring(spaceIndex + 1);
+                    Trie.insert(this, word, def);
+                }
+                else{
+                    if(this.root == null) return false;
+                    else return true;
+                }
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
     
-    public boolean insert(TrieNode root, String word){
-        if(search(root, word)) return false;
-        TrieNode currentNode = root;
+    /**
+     * Inserts a word into the Trie.
+     * 
+     * @param root the root node of the Trie
+     * @param word the word to be added
+     * @param definition the definition of word
+     * @return true if successful new addition, false if otherwise
+     */
+    static boolean insert(Trie trie, String word, String definition){
+        if(search(trie, word)) return false;  // if word already exists in Trie, return false
+        TrieNode currentNode = trie.root;
         int index = 0;
         for(int i = 0; i < word.length(); i++){
             index = word.charAt(i) - 'a'; // converts char into index
@@ -39,9 +89,16 @@ public class Trie {
             currentNode = currentNode.children[index];
         }
         currentNode.wordCount++;
+        currentNode.definition = definition;
         return true;
     }
     
+    /**
+     * Counts the number of non-null children from a given node.
+     * 
+     * @param currentNode the starting node
+     * @return the number of children from the given node
+     */
     private int countChildrren(TrieNode currentNode){
         int count = 0;
         for(int i = 0; i < alphabetSize; i++){
@@ -51,8 +108,16 @@ public class Trie {
         return count;
     }
 
-    public boolean deleteWord(TrieNode root, String word){
-        TrieNode currentNode = root;
+    /**
+     * Deletes the given word from the dictionary.
+     * 
+     * @param root the root of the trie
+     * @param word the word to be deleted
+     * @return true if successful, false if otherwise
+     */
+    public boolean deleteWord(Trie trie, String word){
+        if(!search(trie, word)) return false;  // word DNE in trie
+        TrieNode currentNode = trie.root;
         TrieNode lastBranchNode = null;
         char lastBranchChar = 'a';
         int index = 0;
@@ -72,25 +137,35 @@ public class Trie {
         int count = countChildrren(currentNode);
         // deleted word is a prefix to other words
         if(count > 0){
+            currentNode.definition = null;
             currentNode.wordCount--;
             return true;
         }
         // deleted word shared a common prefix w/ other words
         else if(lastBranchNode != null){
+            lastBranchNode.children[lastBranchChar - 'a'].definition = null;
             lastBranchNode.children[lastBranchChar - 'a'] = null;
             return true;
         }
         // deleted word shares no common prefixes w/ other words
         else{
+            root.children[word.charAt(0) - 'a'].definition = null;
             root.children[word.charAt(0) - 'a'] = null;
             return true;
         }
     }
 
-    public boolean doesPrefixExist(TrieNode root, String word){
+    /**
+     * Checks if the current prefix is part of a valid word in the Trie.
+     * 
+     * @param root the root node of the Trie
+     * @param currentPrefix the current prefix 
+     * @return true if a word exists after the current prefix, false if otherwise
+     */
+    public boolean doesPrefixExist(TrieNode root, String currentPrefix){
         TrieNode currentNode = root;
         int index = 0;
-        for(char c : word.toCharArray()){
+        for(char c : currentPrefix.toCharArray()){
             index = c - 'a'; // converts char into index
             if(currentNode.children[index] == null) 
                 return false;
@@ -99,8 +174,14 @@ public class Trie {
         return true;
     }
 
-    static boolean search(TrieNode root, String word){
-        TrieNode currentNode = root;
+    /**
+     * Searches the given Trie for a specific word.
+     * 
+     * @param trie the trie to search for the word
+     * @param word the word to search for
+     */
+    static boolean search(Trie trie, String word){
+        TrieNode currentNode = trie.root;
         int index = 0;
         for(int i = 0; i < word.length(); i++){
             index = word.charAt(i) - 'a';
@@ -129,12 +210,12 @@ public class Trie {
         }
     }
 
-    public static void main(String[] args){
-        Trie searchTrie = new Trie();
-        searchTrie.insert(searchTrie.root, "apple");
-        searchTrie.insert(searchTrie.root, "banana");
-        searchTrie.insert(searchTrie.root, "strawberry");
-        searchTrie.printTrie(searchTrie.root, "");
-    }
+    // public static void main(String[] args){
+    //     Trie searchTrie = new Trie();
+    //     // searchTrie.insert(searchTrie.root, "apple");
+    //     // searchTrie.insert(searchTrie.root, "banana");
+    //     // searchTrie.insert(searchTrie.root, "strawberry");
+    //     // searchTrie.printTrie(searchTrie.root, "");
+    // }
 
 }

@@ -15,9 +15,9 @@ public class TrieTest {
     @Before
     public void setUp(){
         testTrie = new Trie();
-        testTrie.insert(testTrie.root, "apple");
-        testTrie.insert(testTrie.root, "banana");
-        testTrie.insert(testTrie.root, "strawberry");
+        Trie.insert(testTrie, "apple", "a red fruit grown in Autumn");
+        Trie.insert(testTrie, "banana", "a popular fruit among primates");
+        Trie.insert(testTrie, "strawberry", "funnily enough, not a berry");
     }
 
     @After
@@ -27,14 +27,14 @@ public class TrieTest {
 
     @Test
     public void testTrieInsert(){
-        assertTrue(testTrie.insert(testTrie.root, "pear"));
-        assertFalse(testTrie.insert(testTrie.root, "apple"));
+        assertTrue(Trie.insert(testTrie, "pear", "Living in apple's shadow"));
+        assertFalse(Trie.insert(testTrie, "apple", "a different apple def"));
     }
 
     @Test
     public void testDeleteWord(){
-        assertTrue(testTrie.deleteWord(testTrie.root, "apple"));
-        assertFalse(testTrie.deleteWord(testTrie.root, "pear"));
+        assertTrue(testTrie.deleteWord(testTrie, "apple"));
+        assertFalse(testTrie.deleteWord(testTrie, "pear"));
     }
 
     @Test
@@ -46,8 +46,17 @@ public class TrieTest {
 
     @Test
     public void testSearch(){
-        assertTrue(Trie.search(testTrie.root, "strawberry"));
-        assertFalse(Trie.search(testTrie.root, "fortnite"));
+        assertTrue(Trie.search(testTrie, "strawberry"));
+        assertFalse(Trie.search(testTrie, "fortnite"));
+    }
+
+    @Test
+    public void testInputDictionary(){
+        testTrie = new Trie();
+        assertTrue(testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary.txt"));
+        assertTrue(Trie.search(testTrie, "peach"));
+        assertTrue(Trie.search(testTrie, "banana"));
+        assertFalse(Trie.search(testTrie, "pear"));
     }
 
 }
