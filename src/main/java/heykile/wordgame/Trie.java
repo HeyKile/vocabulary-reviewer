@@ -27,10 +27,6 @@ public class Trie {
             wordCount = 0;
         }
     }
-
-    private int getWordCount(){
-        return this.wordCount;
-    }
     
     public boolean insert(TrieNode root, String word){
         if(search(root, word)) return false;
