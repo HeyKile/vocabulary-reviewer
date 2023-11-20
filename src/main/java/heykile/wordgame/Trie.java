@@ -191,6 +191,14 @@ public class Trie {
         return true;
     }
 
+    public static String getRandomWord(Trie trie){
+        String randomWord = "";
+        TrieNode currentNode = trie.root;
+        
+        
+        return randomWord;
+    }
+
     public static void printTrie(TrieNode node, String word) {
         if (node == null) return;
     
