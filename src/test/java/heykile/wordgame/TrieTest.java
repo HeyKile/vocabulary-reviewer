@@ -39,9 +39,9 @@ public class TrieTest {
 
     @Test
     public void testDoesPrefixExist(){
-        assertTrue(testTrie.doesPrefixExist(testTrie.root, "ap"));
-        assertTrue(testTrie.doesPrefixExist(testTrie.root, "ban"));
-        assertFalse(testTrie.doesPrefixExist(testTrie.root, "x"));
+        assertTrue(Trie.doesPrefixExist(testTrie, "ap"));
+        assertTrue(Trie.doesPrefixExist(testTrie, "ban"));
+        assertFalse(Trie.doesPrefixExist(testTrie, "x"));
     }
 
     @Test

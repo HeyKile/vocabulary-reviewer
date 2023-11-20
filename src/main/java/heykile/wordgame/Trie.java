@@ -162,8 +162,8 @@ public class Trie {
      * @param currentPrefix the current prefix 
      * @return true if a word exists after the current prefix, false if otherwise
      */
-    public boolean doesPrefixExist(TrieNode root, String currentPrefix){
-        TrieNode currentNode = root;
+    static boolean doesPrefixExist(Trie trie, String currentPrefix){
+        TrieNode currentNode = trie.root;
         int index = 0;
         for(char c : currentPrefix.toCharArray()){
             index = c - 'a'; // converts char into index
