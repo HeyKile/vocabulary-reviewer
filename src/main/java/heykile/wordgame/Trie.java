@@ -192,7 +192,7 @@ public class Trie {
         return true;
     }
 
-    public void printTrie(TrieNode node, String word) {
+    public static void printTrie(TrieNode node, String word) {
         if (node == null) return;
     
         // If the node represents the end of a word, print it
