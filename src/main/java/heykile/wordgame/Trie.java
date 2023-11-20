@@ -10,19 +10,19 @@ package heykile.wordgame;
 public class Trie {
 
     final int alphabetSize = 26;
-    private TrieNode root;
-    private int wordCount;
+    TrieNode root;
+    int wordCount;
 
     public Trie(){
         root = new TrieNode();
         wordCount = 0;
     }
 
-    private class TrieNode{
-        private TrieNode[] children;
-        private int wordCount;
+    class TrieNode{
+        TrieNode[] children;
+        int wordCount;
 
-        private TrieNode(){
+        public TrieNode(){
             children = new TrieNode[alphabetSize];
             wordCount = 0;
         }
@@ -32,7 +32,8 @@ public class Trie {
         return this.wordCount;
     }
     
-    private void insert(TrieNode root, String word){
+    public boolean insert(TrieNode root, String word){
+        if(search(root, word)) return false;
         TrieNode currentNode = root;
         int index = 0;
         for(int i = 0; i < word.length(); i++){
@@ -42,6 +43,7 @@ public class Trie {
             currentNode = currentNode.children[index];
         }
         currentNode.wordCount++;
+        return true;
     }
     
     private int countChildrren(TrieNode currentNode){
@@ -53,7 +55,7 @@ public class Trie {
         return count;
     }
 
-    private boolean deleteWord(TrieNode root, String word){
+    public boolean deleteWord(TrieNode root, String word){
         TrieNode currentNode = root;
         TrieNode lastBranchNode = null;
         char lastBranchChar = 'a';
@@ -113,10 +115,30 @@ public class Trie {
         return true;
     }
 
+    public void printTrie(TrieNode node, String word) {
+        if (node == null) return;
+    
+        // If the node represents the end of a word, print it
+        if (node.wordCount > 0) {
+            System.out.println(word);
+        }
+    
+        // Traverse through all the children nodes recursively
+        for (int i = 0; i < alphabetSize; i++) {
+            TrieNode child = node.children[i];
+            if (child != null) {
+                char ch = (char) (i + 'a');
+                printTrie(child, word + ch);
+            }
+        }
+    }
+
     public static void main(String[] args){
         Trie searchTrie = new Trie();
         searchTrie.insert(searchTrie.root, "apple");
-        if(search(searchTrie.root, "apple")) System.out.println("found");
+        searchTrie.insert(searchTrie.root, "banana");
+        searchTrie.insert(searchTrie.root, "strawberry");
+        searchTrie.printTrie(searchTrie.root, "");
     }
 
 }
