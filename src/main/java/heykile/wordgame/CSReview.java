@@ -12,7 +12,6 @@ public class CSReview {
 
     public CSReview(){
         userAnsers = new ArrayList<>();
-        // reviewTrie = selectWordBanks();
         reviewTrie = new Trie();
         reviewTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\cs-dictionary.txt");
         numQuestions = selectNumQuestions();
@@ -62,23 +61,8 @@ public class CSReview {
         return numCorrect;
     }
 
-    // public Trie selectWordBanks(){
-    //     Scanner scan = new Scanner(System.in);
-    //     String selection;
-    //     while(true){
-    //         Scanner scan = new Scanner(System.in);
-    //         String
-
-
-
-    //     }
-    //     Trie trie = new Trie();
-
-    //     return trie;
-    // }
-
     public int selectNumQuestions(){
-        return 0;
+        return 10;
     }
 
 }

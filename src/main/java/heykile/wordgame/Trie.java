@@ -1,15 +1,9 @@
 /**
  * Class for Trie data structure to be used w/ word games.
- * Adapted from <a href="https://www.geeksforgeeks.org/introduction-to-trie-data-structure-and-algorithm-tutorials/">geeksforgeeks</a>. 
+ * Adapted from https://www.geeksforgeeks.org/introduction-to-trie-data-structure-and-algorithm-tutorials/
  * 
  * @author Kyle Bello (@HeyKile)
  */
-
-
-
-// TODO:
-//  1. do bounds checking of letters to ensure valid
-
 
 package heykile.wordgame;
 
@@ -91,7 +85,9 @@ public class Trie {
     }
 
     /**
-     * Converts letter into index for child array
+     * Converts letter into index for child array.
+     * 
+     * Note: '-' and ' ' have reserved spaces on array.
      * 
      * @param c
      * @return index of letter in children array
