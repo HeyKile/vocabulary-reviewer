@@ -150,7 +150,7 @@ public class Trie {
             }
             if(!foundCurrentLetter) return false;
         }
-        return true;
+        return currentNode.isWord;
     }
     
     /**
@@ -175,44 +175,30 @@ public class Trie {
      * @param word the word to be deleted
      * @return true if successful, false if otherwise
      */
-    public boolean deleteWord(Trie trie, String word){
-        if(!search(trie, word)) return false;  // word DNE in trie
+    public boolean remove(Trie trie, String word){
         TrieNode currentNode = trie.root;
-        TrieNode lastBranchNode = null;
-        char lastBranchChar = 'a';
-        int index = 0;
-        for(int i = 0; i < word.length(); i++){
-            index = word.charAt(i) - 'a'; // converts char into index
-            if(currentNode.children[index] == null)
+        Stack<TrieNode> nodeDeletionStack = new Stack<>();
+        for(char c : word.toCharArray()){
+            int childrenArrIndex = letterToIndex(c);
+            if(currentNode.children[childrenArrIndex] == null)
                 return false;
-            else{
-                int count = countChildren(currentNode);
-                if(count > 1){
-                    lastBranchNode = currentNode;
-                    lastBranchChar = word.charAt(i);
-                }
-                currentNode = currentNode.children[index];
+            currentNode = currentNode.children[childrenArrIndex];
+            nodeDeletionStack.push(currentNode);
+        }
+        if(!currentNode.isWord)
+            return false;
+        else{
+            currentNode.isWord = false;
+            currentNode.wordCount--;
+            while(!nodeDeletionStack.isEmpty()){
+                currentNode = nodeDeletionStack.pop();
+                if(countChildren(currentNode) == 0 && !currentNode.isWord)
+                    currentNode.parent.children[letterToIndex(currentNode.letter)] = null;
+                else
+                    break;
             }
         }
-        int count = countChildren(currentNode);
-        // deleted word is a prefix to other words
-        if(count > 0){
-            currentNode.definition = null;
-            currentNode.wordCount--;
-            return true;
-        }
-        // deleted word shared a common prefix w/ other words
-        else if(lastBranchNode != null){
-            lastBranchNode.children[lastBranchChar - 'a'].definition = null;
-            lastBranchNode.children[lastBranchChar - 'a'] = null;
-            return true;
-        }
-        // deleted word shares no common prefixes w/ other words
-        else{
-            root.children[word.charAt(0) - 'a'].definition = null;
-            root.children[word.charAt(0) - 'a'] = null;
-            return true;
-        }
+        return true;
     }
 
     /**

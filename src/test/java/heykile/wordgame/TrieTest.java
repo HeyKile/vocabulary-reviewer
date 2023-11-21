@@ -31,8 +31,8 @@ public class TrieTest {
         testTrie = new Trie();
         Trie.insert(testTrie, "pear", "Living in apple's shadow");
         Trie.insert(testTrie, "apple", "a different apple def");
-        Trie.search(testTrie, "pear");
-        Trie.search(testTrie, "apple");
+        assertTrue(Trie.search(testTrie, "pear"));
+        assertTrue(Trie.search(testTrie, "pear"));
     }
 
     @Test
@@ -45,9 +45,17 @@ public class TrieTest {
 
     @Test
     public void testDeleteWord(){
-        assertTrue(testTrie.deleteWord(testTrie, "apple"));
-        assertFalse(testTrie.deleteWord(testTrie, "pear"));
+        assertTrue(testTrie.remove(testTrie, "apple"));
+        assertFalse(testTrie.remove(testTrie, "pear"));
         assertFalse(Trie.search(testTrie, "apple"));
+    }
+
+    @Test
+    public void testRemoveDeletePrefix(){
+        Trie.insert(testTrie, "app", "a small, useable peice of software");
+        testTrie.remove(testTrie, "app");
+        assertFalse(Trie.search(testTrie, "app"));
+        assertTrue(Trie.search(testTrie, "apple"));
     }
 
     @Test
