@@ -203,24 +203,71 @@ public class TrieTest {
     }
 
     /**
-     * Test case for useInputDictionary() on a test dictionary txt file.
+     * Test case for useInputDictionary() on a large test dictionary txt file.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created
+     * 
+     * Execution Steps
+     *  1. useDictionaryFile() with the filepath to test-dictionary-large.txt (in the dictionaries file of this repository)
+     * 
+     * Postconditions:
+     *  1. the number of words in the trie is 100
+     *  2. the word "cabbage" exists in the trie
+     */
+    @Test
+    public void testUseInputDictionaryLarge(){
+        testTrie = new Trie();
+        assertTrue(testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary-large.txt"));
+        assertEquals(100, testTrie.totalWordCount);
+        assertTrue(Trie.search(testTrie, "cabbage"));
+    }
+
+    /**
+     * Test case for getRandomWord().
      * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the words "apple", "banana", "strawberry"
      * 
      * Execution Steps
-     *  1. call getRandomWord()
+     *  1. call getRandomWord() 10 times
      * 
      * Postconditions:
-     *  1. getRandomWord() returns a non-null string
-     *  2, getRandomWord() returns a random string in the Trie
+     *  1. For each of the 10 times, getRandomWord() returns a non-null string
+     *  2. For each of the 10 times, getRandomWord() returns a random string in the Trie
      */
     @Test
     public void testGetRandomWord(){
-        String result = testTrie.getRandomWord();
-        assertNotNull(result);
-        assertTrue(Trie.search(testTrie, result));
+        for(int i = 0; i < 10; i++){
+            String result = testTrie.getRandomWord();
+            assertNotNull(result);
+            assertTrue(Trie.search(testTrie, result));
+        }   
+    }
+
+    /**
+     * Test case for getRandomWord() on test-dictionary-large.txt.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created with the dictionary test-dictionary-large.txt
+     * 
+     * Execution Steps
+     *  1. call getRandomWord() 200 times
+     * 
+     * Postconditions:
+     *  1. For each of the 200 times, getRandomWord() returns a non-null string
+     *  2. For each of the 200 times, getRandomWord() returns a random string in the Trie
+     */
+    @Test
+    public void testGetRandomWordLargeDictionary(){
+        testTrie = new Trie();
+        testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary-large.txt");
+        for(int i = 0; i < 200; i++){
+            String result = testTrie.getRandomWord();
+            assertNotNull(result);
+            assertTrue(Trie.search(testTrie, result));
+        }   
     }
 
 }

@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class Trie {
 
-    final static int alphabetSize = 26;
+    final static int alphabetSize = 29; // 26 letters plus dash and space
     TrieNode root;
     int totalWordCount;
 
@@ -62,7 +62,7 @@ public class Trie {
 
     /**
      * Builds a trie dictionary using an input file.
-     * Dictionary entries must be in the form "word (space) this is the definiton".
+     * Dictionary entries must be in the form "word|definition".
      * 
      * @param fileName the path to the input file
      * @return true if sucessful, false otherwise
@@ -71,7 +71,7 @@ public class Trie {
         String line;
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
             while((line = br.readLine()) != null){
-                int spaceIndex = line.indexOf(" ");
+                int spaceIndex = line.indexOf("|");
                 if(spaceIndex > -1){
                     String word = line.substring(0, spaceIndex);
                     String def = line.substring(spaceIndex + 1);
@@ -91,13 +91,20 @@ public class Trie {
     }
 
     /**
-     * Converts letter(a-z) into index for child array
+     * Converts letter into index for child array
      * 
      * @param c
      * @return index of letter in children array
      */
     private static int letterToIndex(char c){
-        return c - 'a';
+        switch(c){
+            case '-':
+                return alphabetSize - 2;
+            case ' ':
+                return alphabetSize - 1;
+            default:
+                return c - 'a';
+        }
     }
 
     /**
@@ -134,6 +141,9 @@ public class Trie {
             currentNode.wordCount++;
             currentNode.definition = definition;
             trie.totalWordCount++;
+        }
+        else{
+            System.out.println("Word not added: " + word);
         }
     }
 
@@ -237,17 +247,19 @@ public class Trie {
             ArrayList<TrieNode> possibleWordPaths = new ArrayList<>();
             // for all children of current node, get indexes of possible paths
             for(TrieNode child : currentNode.children){
-                if(child != null && child.wordCount > 0)
+                if(child != null)
                     possibleWordPaths.add(child);
             }
             // no more paths, return lastCompletedWord
             if(possibleWordPaths.size() == 0) 
                 return lastCompleteWord != null ? lastCompleteWord : null;
             // choose child node
-            int randomIndex = random.nextInt(possibleWordPaths.size()-1);
+            int randomIndex = random.nextInt(possibleWordPaths.size());
             TrieNode selectedNode = possibleWordPaths.get(randomIndex);
-            if(selectedNode.isWord && selectedNode.wordCount > 1){
-                lastCompleteWord = word.toString();     
+            word.append(selectedNode.letter);
+            if(selectedNode.isWord)
+                lastCompleteWord = word.toString();
+            currentNode = selectedNode;
         }
     }
 
@@ -269,12 +281,9 @@ public class Trie {
         }
     }
 
-    public static void main(String[] args){
-        Trie searchTrie = new Trie();
-        Trie.insert(searchTrie, "apple", "");
-        // Trie.insert(searchTrie, "banana", "");
-        // Trie.insert(searchTrie, "strawberry", "");
-        // Trie.printTrie(searchTrie.root, "");
-    }
+    // public static void main(String[] args){
+    //     Trie searchTrie = new Trie();
+    //     searchTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary-large.txt");
+    // }
 
 }
