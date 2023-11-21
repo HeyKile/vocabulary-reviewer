@@ -103,6 +103,9 @@ public class Trie {
     /**
      * Inserts a word into the Trie.
      * 
+     * If the input word is already in the trie, it is not added, even if the
+     * definition is different.
+     * 
      * @param root the root node of the Trie
      * @param word the word to be added
      * @param definition the definition of word
@@ -126,10 +129,12 @@ public class Trie {
                 currentNode = currentNode.children[childrenArrIndex];
             }
         }
-        currentNode.isWord = true;
-        currentNode.wordCount++;
-        currentNode.definition = definition;
-        trie.totalWordCount++;
+        if(!currentNode.isWord){
+            currentNode.isWord = true;
+            currentNode.wordCount++;
+            currentNode.definition = definition;
+            trie.totalWordCount++;
+        }
     }
 
 
