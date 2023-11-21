@@ -5,10 +5,15 @@
  * @author Kyle Bello (@HeyKile)
  */
 
+
+
+// TODO:
+//  1. do bounds checking of letters to ensure valid
+
+
 package heykile.wordgame;
 
 import java.util.*;
-import java.util.function.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +24,6 @@ public class Trie {
     TrieNode root;
     int wordCount;
 
-    // class for Trie nodes
     static class TrieNode{
         TrieNode parent;
         TrieNode[] children;
@@ -86,6 +90,12 @@ public class Trie {
         return true;
     }
 
+    /**
+     * Converts letter(a-z) into index for child array
+     * 
+     * @param c
+     * @return index of letter in children array
+     */
     private static int letterToIndex(char c){
         return c - 'a';
     }
