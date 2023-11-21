@@ -25,6 +25,7 @@ public class TrieTest {
         testTrie = null;
     }
 
+
     @Test
     public void testTrieInsert(){
         testTrie = new Trie();

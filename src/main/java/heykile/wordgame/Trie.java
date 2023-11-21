@@ -8,6 +8,7 @@
 package heykile.wordgame;
 
 import java.util.*;
+import java.util.function.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -85,6 +86,10 @@ public class Trie {
         return true;
     }
 
+    private static int letterToIndex(char c){
+        return c - 'a';
+    }
+
     /**
      * Inserts a word into the Trie.
      * 
@@ -94,33 +99,21 @@ public class Trie {
      * @return true if successful new addition, false if otherwise
      */
     static void insert(Trie trie, String word, String definition){
-        TrieNode lastParent = null;
         TrieNode currentNode = trie.root;
-        int childrenIndex = 0;
+        int childrenArrIndex = 0;
         for(char c : word.toCharArray()){
-            childrenIndex = c - 'a';
-            if(currentNode == null){
-                lastParent = currentNode;
-                currentNode = new TrieNode(lastParent, c);
-                currentNode = currentNode.children[childrenIndex];
-            }
-            else if(currentNode.letter == c){
-                currentNode = currentNode.children[childrenIndex];
-            }
-            else{
-                boolean found = false;
-                for(TrieNode child : currentNode.children){
-                    if(child != null && child.letter == c){
-                        currentNode = child;
-                        found = true;
-                        break;
-                    }
+            childrenArrIndex = letterToIndex(c);
+            boolean found = false;
+            for(TrieNode child : currentNode.children){
+                if(child != null && child.letter == c){
+                    currentNode = child;
+                    found = true;
+                    break;
                 }
-                if(!found){
-                    TrieNode newSibling = new TrieNode(currentNode, c);
-                    currentNode.children[childrenIndex] = newSibling;
-                    currentNode = newSibling;
-                }
+            }
+            if(!found){
+                currentNode.children[childrenArrIndex] = new TrieNode(currentNode, c);
+                currentNode = currentNode.children[childrenArrIndex];
             }
         }
         currentNode.isWord = true;
@@ -138,12 +131,14 @@ public class Trie {
     static boolean search(Trie trie, String word){
         TrieNode currentNode = trie.root;
         for(char c : word.toCharArray()){
-            while(currentNode.letter != c && currentNode.nextSibling != null)
-                currentNode = currentNode.nextSibling;
-            if(currentNode.letter == c){
-                currentNode = currentNode.child;
+            boolean foundCurrentLetter = false;
+            for(TrieNode child : currentNode.children){
+                if(child != null && child.letter == c){
+                    currentNode = child;
+                    foundCurrentLetter = true;
+                }
             }
-            else return false;
+            if(!foundCurrentLetter) return false;
         }
         return true;
     }
