@@ -149,7 +149,7 @@ public class Trie {
 
 
     /**
-     * Searches the given Trie for a specific word.
+     * Searches the given Trie to see if input word exists.
      * 
      * @param trie the trie to search for the word
      * @param word the word to search for
@@ -167,6 +167,27 @@ public class Trie {
             if(!foundCurrentLetter) return false;
         }
         return currentNode.isWord;
+    }
+
+    /**
+     * Finds the definition of the given word using the trie
+     * 
+     * @param word the word to search for
+     * @return the ending node of a word if it exists, null otherwise
+     */
+    public String getDefinition(String word){
+        TrieNode currentNode = this.root;
+        for(char c : word.toCharArray()){
+            boolean foundCurrentLetter = false;
+            for(TrieNode child : currentNode.children){
+                if(child != null && child.letter == c){
+                    currentNode = child;
+                    foundCurrentLetter = true;
+                }
+            }
+            if(!foundCurrentLetter) return null;
+        }
+        return currentNode.isWord ? currentNode.definition : null;
     }
     
     /**

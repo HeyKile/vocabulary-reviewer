@@ -51,7 +51,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", and "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call insert() with word "apple" and definition "a red fruit grown in Autumn"
@@ -70,7 +72,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", and "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call search() with word "banana"
@@ -88,7 +92,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", and "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call search() with word "blueberry"
@@ -106,7 +112,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", and "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call remove with word "apple"
@@ -126,7 +134,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call insert() with the word "app" and the definition "a small, useable peice of software"
@@ -150,7 +160,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call doesPrefixExist() with prefix "straw"
@@ -168,7 +180,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call doesPrefixExist() with prefix "pe"
@@ -228,7 +242,9 @@ public class TrieTest {
      * 
      * Preconditions:
      *  1. a new Trie object is created
-     *  2. trie object contains the words "apple", "banana", "strawberry"
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
      * 
      * Execution Steps
      *  1. call getRandomWord() 10 times
@@ -270,4 +286,25 @@ public class TrieTest {
         }   
     }
 
+    /**
+     * Test case for getDefinition() for a word that exists in the trie.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created
+     *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
+     *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
+     *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
+     *     
+     * 
+     * Execution Steps
+     *  1. call getWordDefinition() with word "banana"
+     * 
+     * Postconditions:
+     *  1. getWordDefinition() returns "a popular fruit among primates"
+     */
+    @Test
+    public void testGetDefinition(){
+        assertEquals("a popular fruit among primates", testTrie.getDefinition("banana"));
+    }
+    
 }
