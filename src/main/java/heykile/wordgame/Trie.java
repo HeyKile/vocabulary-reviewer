@@ -22,14 +22,36 @@ public class Trie {
     static class TrieNode{
         TrieNode[] children;
         TrieNode parent;
+        TrieNode child;
+        TrieNode nextSibling;
+        TrieNode prevSibling;
         int wordCount;
+        char letter;
+        boolean isWord;
         String definition;
 
         public TrieNode(){
             children = new TrieNode[alphabetSize];
-            parent = null;
-            wordCount = 0;
-            definition = null;
+            this.parent = null;
+            this.child = null;
+            this.nextSibling = null;
+            this.prevSibling = null;
+            this.wordCount = 0;
+            this.letter = '\0';
+            this.isWord = false;
+            this.definition = null;
+        }
+
+        public TrieNode(TrieNode parent, TrieNode prevSibling, char letter){
+            children = new TrieNode[alphabetSize];
+            this.parent = parent;
+            this.child = null;
+            this.nextSibling = null;
+            this.prevSibling = prevSibling;
+            this.wordCount = 0;
+            this.letter = letter;
+            this.isWord = false;
+            this.definition = null;
         }
     }
 
@@ -80,20 +102,60 @@ public class Trie {
      * @param definition the definition of word
      * @return true if successful new addition, false if otherwise
      */
-    static boolean insert(Trie trie, String word, String definition){
-        if(search(trie, word)) return false;  // if word already exists in Trie, return false
+    static void insert(Trie trie, String word, String definition){
+        TrieNode lastParent = null;
         TrieNode currentNode = trie.root;
-        int index = 0;
         for(char c : word.toCharArray()){
-            index = c - 'a'; // converts char into index
-            if(currentNode.children[index] == null){
-                currentNode.children[index] = new TrieNode();
-                currentNode.children[index].parent = currentNode;
+            if(currentNode == null){
+                System.out.println("Null node case");
+                currentNode = new TrieNode(lastParent, null, c);
+                lastParent = currentNode;
+                currentNode = currentNode.child;
             }
-            currentNode = currentNode.children[index];
+            else{
+                // current node is not null, check if current node or siblings have
+                // a letter match
+                while(currentNode.letter != c && currentNode.nextSibling != null)
+                    currentNode = currentNode.nextSibling;
+                if(currentNode.letter == c){
+                    System.out.println("Non-null match");
+                    lastParent = currentNode;
+                    currentNode = currentNode.child;
+                }
+                else{
+                    System.out.println("Non-null no match");
+                    TrieNode newSibling = new TrieNode(null, currentNode, c);
+                    lastParent = currentNode;
+                    currentNode = newSibling;
+                }
+            }
         }
-        currentNode.wordCount++;
-        currentNode.definition = definition;
+        // currentNode has the chance to be null if a leaf was added, but lastParent
+        // is guarenteed to be 
+        if(!lastParent.isWord){
+            lastParent.isWord = true;
+            lastParent.wordCount++;
+            lastParent.definition = definition;
+        }
+    }
+
+
+    /**
+     * Searches the given Trie for a specific word.
+     * 
+     * @param trie the trie to search for the word
+     * @param word the word to search for
+     */
+    static boolean search(Trie trie, String word){
+        TrieNode currentNode = trie.root;
+        for(char c : word.toCharArray()){
+            while(currentNode.letter != c && currentNode.nextSibling != null)
+                currentNode = currentNode.nextSibling;
+            if(currentNode.letter == c){
+                currentNode = currentNode.child;
+            }
+            else return false;
+        }
         return true;
     }
     
@@ -178,24 +240,6 @@ public class Trie {
         return true;
     }
 
-    /**
-     * Searches the given Trie for a specific word.
-     * 
-     * @param trie the trie to search for the word
-     * @param word the word to search for
-     */
-    static boolean search(Trie trie, String word){
-        TrieNode currentNode = trie.root;
-        int index = 0;
-        for(int i = 0; i < word.length(); i++){
-            index = word.charAt(i) - 'a';
-            if(currentNode.children[index] == null)
-                return false;
-            currentNode = currentNode.children[index];
-        }
-        return true;
-    }
-
     public String getRandomWord(){
         TrieNode currentNode = this.root;
         StringBuilder word = new StringBuilder();
@@ -230,12 +274,12 @@ public class Trie {
         }
     }
 
-    // public static void main(String[] args){
-    //     Trie searchTrie = new Trie();
-    //     // searchTrie.insert(searchTrie.root, "apple");
-    //     // searchTrie.insert(searchTrie.root, "banana");
-    //     // searchTrie.insert(searchTrie.root, "strawberry");
-    //     // searchTrie.printTrie(searchTrie.root, "");
-    // }
+    public static void main(String[] args){
+        Trie searchTrie = new Trie();
+        Trie.insert(searchTrie, "apple", "");
+        Trie.insert(searchTrie, "banana", "");
+        Trie.insert(searchTrie, "strawberry", "");
+        Trie.printTrie(searchTrie.root, "");
+    }
 
 }

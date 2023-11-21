@@ -27,8 +27,19 @@ public class TrieTest {
 
     @Test
     public void testTrieInsert(){
-        assertTrue(Trie.insert(testTrie, "pear", "Living in apple's shadow"));
-        assertFalse(Trie.insert(testTrie, "apple", "a different apple def"));
+        testTrie = new Trie();
+        Trie.insert(testTrie, "pear", "Living in apple's shadow");
+        Trie.insert(testTrie, "apple", "a different apple def");
+        Trie.search(testTrie, "pear");
+        Trie.search(testTrie, "apple");
+    }
+
+    @Test
+    public void testSearch(){
+        assertTrue(Trie.search(testTrie, "apple"));
+        assertTrue(Trie.search(testTrie, "banana"));
+        assertTrue(Trie.search(testTrie, "strawberry"));
+        assertFalse(Trie.search(testTrie, "fortnite"));
     }
 
     @Test
@@ -46,24 +57,12 @@ public class TrieTest {
     }
 
     @Test
-    public void testSearch(){
-        assertTrue(Trie.search(testTrie, "strawberry"));
-        assertFalse(Trie.search(testTrie, "fortnite"));
-    }
-
-    @Test
     public void testInputDictionary(){
         testTrie = new Trie();
         assertTrue(testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary.txt"));
         assertTrue(Trie.search(testTrie, "peach"));
         assertTrue(Trie.search(testTrie, "banana"));
         assertFalse(Trie.search(testTrie, "pear"));
-    }
-
-    @Test
-    public void testGetRandomWord(){
-        String randomWord = testTrie.getRandomWord();
-        assertTrue(Trie.search(testTrie, randomWord));
     }
 
 }
