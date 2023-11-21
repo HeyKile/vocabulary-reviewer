@@ -1,0 +1,50 @@
+algorithm|A step-by-step procedure or formula for solving a problem or accomplishing a task in computing.
+data structure|A way of organizing and storing data in a computer so that it can be accessed and manipulated efficiently.
+programming language|A formal language used to give instructions to a computer, allowing it to perform specific tasks.
+variable|A named storage location in computer memory that can hold different values during the execution of a program.
+function|A self-contained block of code that performs a specific task and can be reused throughout a program.
+object-oriented programming|A programming paradigm based on the concept of objects that contain data in the form of fields and code in the form of methods.
+class|A blueprint for creating objects in object-oriented programming, defining properties and behaviors they should have.
+inheritance|A mechanism in object-oriented programming that allows a class to inherit properties and behaviors from another class.
+polymorphism|The ability of different objects to be treated as objects of a common superclass in object-oriented programming.
+encapsulation|The bundling of data and methods that operate on the data into a single unit in object-oriented programming.
+recursion|A programming technique where a function calls itself in its definition to solve problems that can be broken down into smaller, similar subproblems.
+binary|A numbering system composed of only two digits, 0 and 1, used by computers to represent data and perform operations.
+compiler|A program that translates high-level programming code into machine code that can be executed by a computer.
+interpreter|A program that directly executes instructions written in a programming language without the need for compilation.
+debugging|The process of finding and fixing errors or bugs in computer software to ensure it performs as intended.
+algorithm complexity|The measure of how the time or space required by an algorithm grows as the input size increases.
+stack|A linear data structure that follows the Last-In, First-Out principle for data storage and retrieval.
+queue|A linear data structure that follows the First-In, First-Out principle for data storage and retrieval.
+linked list|A data structure consisting of a sequence of nodes where each node points to the next node in the sequence.
+tree|A hierarchical data structure composed of nodes that branches out in a parent-child relationship.
+graph|A data structure consisting of nodes and edges that connect pairs of nodes.
+sorting algorithm|An algorithm that arranges elements in a specific order, such as ascending or descending.
+searching algorithm|An algorithm that finds the location of a target value within a collection of data.
+hashing|A technique used to map data to a fixed-size array, allowing efficient retrieval and storage of information.
+encryption|The process of encoding information in such a way that only authorized parties can access it.
+database|A structured collection of data organized for efficient retrieval, storage, and manipulation.
+SQL|A domain-specific language used for managing and querying data in relational databases.
+API|A set of rules and protocols that allows different software applications to communicate with each other.
+HTTP|The protocol used for transmitting data over the World Wide Web.
+TCP/IP|A set of networking protocols that enables communication between computers over the internet.
+DNS|A hierarchical decentralized naming system that translates domain names into IP addresses.
+HTTPs|An extension of HTTP that provides secure communication over a computer network.
+firewall|A network security system that monitors and controls incoming and outgoing network traffic based on predefined security rules.
+operating system|System software that manages computer hardware and software resources and provides services for computer programs.
+kernel|The core component of an operating system that manages resources and serves as an intermediary between hardware and software.
+file system|The method used by an operating system to store, organize, and retrieve files on storage devices.
+virtualization|The creation of a virtual version of a resource, such as an operating system, server, or storage device.
+cloud computing|The delivery of computing services, including servers, storage, databases, networking, over the internet.
+machine learning|A subset of artificial intelligence that enables computers to learn and improve from experience without explicit programming.
+artificial intelligence|The simulation of human intelligence processes by machines, such as learning, reasoning, and problem-solving.
+data mining|The process of discovering patterns and extracting useful information from large datasets.
+big data|Extremely large and complex datasets that require advanced computational and analytical techniques for processing.
+cybersecurity|The practice of protecting computer systems, networks, and data from digital attacks and unauthorized access.
+agile methodology|A software development approach that emphasizes flexibility, collaboration, and iterative development.
+version control|The management of changes to documents, code, or any collection of files, ensuring version history and collaboration.
+DevOps|A set of practices that combines software development and IT operations to improve collaboration and productivity.
+containerization|The encapsulation of an application and its dependencies into a single package known as a container.
+microservices|An architectural style that structures an application as a collection of loosely coupled, independently deployable services.
+blockchain|A decentralized and distributed digital ledger technology that records transactions across multiple computers.
+quantum computing|A type of computing that uses quantum-mechanical phenomena to perform operations.
