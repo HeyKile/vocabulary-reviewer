@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit tests for Trie.java
+ * Tests for Trie.java
  */
 public class TrieTest {
     
