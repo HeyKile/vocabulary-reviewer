@@ -20,11 +20,8 @@ public class Trie {
 
     // class for Trie nodes
     static class TrieNode{
-        TrieNode[] children;
         TrieNode parent;
-        TrieNode child;
-        TrieNode nextSibling;
-        TrieNode prevSibling;
+        TrieNode[] children;
         int wordCount;
         char letter;
         boolean isWord;
@@ -33,21 +30,15 @@ public class Trie {
         public TrieNode(){
             children = new TrieNode[alphabetSize];
             this.parent = null;
-            this.child = null;
-            this.nextSibling = null;
-            this.prevSibling = null;
             this.wordCount = 0;
             this.letter = '\0';
             this.isWord = false;
             this.definition = null;
         }
 
-        public TrieNode(TrieNode parent, TrieNode prevSibling, char letter){
+        public TrieNode(TrieNode parent, char letter){
             children = new TrieNode[alphabetSize];
             this.parent = parent;
-            this.child = null;
-            this.nextSibling = null;
-            this.prevSibling = prevSibling;
             this.wordCount = 0;
             this.letter = letter;
             this.isWord = false;
@@ -93,7 +84,7 @@ public class Trie {
         }
         return true;
     }
-    
+
     /**
      * Inserts a word into the Trie.
      * 
@@ -105,38 +96,36 @@ public class Trie {
     static void insert(Trie trie, String word, String definition){
         TrieNode lastParent = null;
         TrieNode currentNode = trie.root;
+        int childrenIndex = 0;
         for(char c : word.toCharArray()){
+            childrenIndex = c - 'a';
             if(currentNode == null){
-                System.out.println("Null node case");
-                currentNode = new TrieNode(lastParent, null, c);
                 lastParent = currentNode;
-                currentNode = currentNode.child;
+                currentNode = new TrieNode(lastParent, c);
+                currentNode = currentNode.children[childrenIndex];
+            }
+            else if(currentNode.letter == c){
+                currentNode = currentNode.children[childrenIndex];
             }
             else{
-                // current node is not null, check if current node or siblings have
-                // a letter match
-                while(currentNode.letter != c && currentNode.nextSibling != null)
-                    currentNode = currentNode.nextSibling;
-                if(currentNode.letter == c){
-                    System.out.println("Non-null match");
-                    lastParent = currentNode;
-                    currentNode = currentNode.child;
+                boolean found = false;
+                for(TrieNode child : currentNode.children){
+                    if(child != null && child.letter == c){
+                        currentNode = child;
+                        found = true;
+                        break;
+                    }
                 }
-                else{
-                    System.out.println("Non-null no match");
-                    TrieNode newSibling = new TrieNode(null, currentNode, c);
-                    lastParent = currentNode;
+                if(!found){
+                    TrieNode newSibling = new TrieNode(currentNode, c);
+                    currentNode.children[childrenIndex] = newSibling;
                     currentNode = newSibling;
                 }
             }
         }
-        // currentNode has the chance to be null if a leaf was added, but lastParent
-        // is guarenteed to be 
-        if(!lastParent.isWord){
-            lastParent.isWord = true;
-            lastParent.wordCount++;
-            lastParent.definition = definition;
-        }
+        currentNode.isWord = true;
+        currentNode.wordCount++;
+        currentNode.definition = definition;
     }
 
 
@@ -277,9 +266,9 @@ public class Trie {
     public static void main(String[] args){
         Trie searchTrie = new Trie();
         Trie.insert(searchTrie, "apple", "");
-        Trie.insert(searchTrie, "banana", "");
-        Trie.insert(searchTrie, "strawberry", "");
-        Trie.printTrie(searchTrie.root, "");
+        // Trie.insert(searchTrie, "banana", "");
+        // Trie.insert(searchTrie, "strawberry", "");
+        // Trie.printTrie(searchTrie.root, "");
     }
 
 }
