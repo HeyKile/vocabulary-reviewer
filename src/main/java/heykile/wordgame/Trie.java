@@ -227,20 +227,28 @@ public class Trie {
         return true;
     }
 
+
     public String getRandomWord(){
         TrieNode currentNode = this.root;
         StringBuilder word = new StringBuilder();
+        String lastCompleteWord = null;
+        Random random = new Random();
         while(true){
-            List<TrieNode> possibleNextNodes = new ArrayList<>();
+            ArrayList<TrieNode> possibleWordPaths = new ArrayList<>();
+            // for all children of current node, get indexes of possible paths
             for(TrieNode child : currentNode.children){
-                if(child != null) possibleNextNodes.add(child);
+                if(child != null && child.wordCount > 0)
+                    possibleWordPaths.add(child);
             }
-            if(possibleNextNodes.isEmpty()) break;
-            int randomIndex = new Random().nextInt(possibleNextNodes.size());
-            TrieNode selectedNode = possibleNextNodes.get(randomIndex);
-            currentNode = selectedNode;
+            // no more paths, return lastCompletedWord
+            if(possibleWordPaths.size() == 0) 
+                return lastCompleteWord != null ? lastCompleteWord : null;
+            // choose child node
+            int randomIndex = random.nextInt(possibleWordPaths.size()-1);
+            TrieNode selectedNode = possibleWordPaths.get(randomIndex);
+            if(selectedNode.isWord && selectedNode.wordCount > 1){
+                lastCompleteWord = word.toString();     
         }
-        return word.length() > 0 ? word.toString() : null;
     }
 
     public static void printTrie(TrieNode node, String word) {

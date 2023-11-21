@@ -122,8 +122,7 @@ public class TrieTest {
     }
 
     /**
-     * Test case for remove() where a word in the trie is deleted that is a
-     * prefix to another word.
+     * Test case for remove() where a word in the trie is deleted that is a prefix to another word.
      * 
      * Preconditions:
      *  1. a new Trie object is created
@@ -146,21 +145,82 @@ public class TrieTest {
         assertTrue(Trie.search(testTrie, "apple"));
     }
 
-    
+    /**
+     * Test case for doesPrefixExist() on a prefix for a word that exists in the trie.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created
+     *  2. trie object contains the words "apple", "banana", "strawberry"
+     * 
+     * Execution Steps
+     *  1. call doesPrefixExist() with prefix "straw"
+     * 
+     * Postconditions:
+     *  1. doesPrefixExist() returns true
+     */
     @Test
     public void testDoesPrefixExist(){
-        assertTrue(Trie.doesPrefixExist(testTrie, "ap"));
-        assertTrue(Trie.doesPrefixExist(testTrie, "ban"));
-        assertFalse(Trie.doesPrefixExist(testTrie, "x"));
+        assertTrue(Trie.doesPrefixExist(testTrie, "straw"));
     }
 
+    /**
+     * Test case for doesPrefixExist() on a prefix for a word that does not exist in the trie.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created
+     *  2. trie object contains the words "apple", "banana", "strawberry"
+     * 
+     * Execution Steps
+     *  1. call doesPrefixExist() with prefix "pe"
+     * 
+     * Postconditions:
+     *  1. doesPrefixExist() returns false
+     */
     @Test
-    public void testInputDictionary(){
+    public void testDoesPrefixExistPrefixDNE(){
+        assertFalse(Trie.doesPrefixExist(testTrie, "pe"));
+    }
+
+    /**
+     * Test case for useInputDictionary() on a test dictionary txt file.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created
+     * 
+     * Execution Steps
+     *  1. useDictionaryFile() with the filepath to test-dictionary.txt (in the dictionaries file of this repository)
+     * 
+     * Postconditions:
+     *  1. the number of words in the trie is 5
+     *  2. the word "peach" exists in the trie
+     */
+    @Test
+    public void testUseInputDictionary(){
         testTrie = new Trie();
         assertTrue(testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary.txt"));
+        assertEquals(5, testTrie.totalWordCount);
         assertTrue(Trie.search(testTrie, "peach"));
-        assertTrue(Trie.search(testTrie, "banana"));
-        assertFalse(Trie.search(testTrie, "pear"));
+    }
+
+    /**
+     * Test case for useInputDictionary() on a test dictionary txt file.
+     * 
+     * Preconditions:
+     *  1. a new Trie object is created
+     *  2. trie object contains the words "apple", "banana", "strawberry"
+     * 
+     * Execution Steps
+     *  1. call getRandomWord()
+     * 
+     * Postconditions:
+     *  1. getRandomWord() returns a non-null string
+     *  2, getRandomWord() returns a random string in the Trie
+     */
+    @Test
+    public void testGetRandomWord(){
+        String result = testTrie.getRandomWord();
+        assertNotNull(result);
+        assertTrue(Trie.search(testTrie, result));
     }
 
 }
