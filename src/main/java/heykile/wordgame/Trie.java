@@ -22,7 +22,7 @@ public class Trie {
 
     final static int alphabetSize = 26;
     TrieNode root;
-    int wordCount;
+    int totalWordCount;
 
     static class TrieNode{
         TrieNode parent;
@@ -57,7 +57,7 @@ public class Trie {
 
     public Trie(TrieNode node){
         root = node;
-        wordCount = 0;
+        totalWordCount = 0;
     }
 
     /**
@@ -129,6 +129,7 @@ public class Trie {
         currentNode.isWord = true;
         currentNode.wordCount++;
         currentNode.definition = definition;
+        trie.totalWordCount++;
     }
 
 
@@ -190,6 +191,7 @@ public class Trie {
         else{
             currentNode.isWord = false;
             currentNode.wordCount--;
+            trie.totalWordCount--;
             while(!nodeDeletionStack.isEmpty()){
                 currentNode = nodeDeletionStack.pop();
                 if(countChildren(currentNode) == 0 && !currentNode.isWord)

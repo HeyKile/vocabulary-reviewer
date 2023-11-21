@@ -32,7 +32,8 @@ public class TrieTest {
         Trie.insert(testTrie, "pear", "Living in apple's shadow");
         Trie.insert(testTrie, "apple", "a different apple def");
         assertTrue(Trie.search(testTrie, "pear"));
-        assertTrue(Trie.search(testTrie, "pear"));
+        assertTrue(Trie.search(testTrie, "apple"));
+        assertEquals(testTrie.totalWordCount, 2);
     }
 
     @Test
