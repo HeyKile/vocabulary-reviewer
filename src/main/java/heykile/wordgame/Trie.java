@@ -7,6 +7,7 @@
 
 package heykile.wordgame;
 
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,11 +21,13 @@ public class Trie {
     // class for Trie nodes
     static class TrieNode{
         TrieNode[] children;
+        TrieNode parent;
         int wordCount;
         String definition;
 
         public TrieNode(){
             children = new TrieNode[alphabetSize];
+            parent = null;
             wordCount = 0;
             definition = null;
         }
@@ -41,7 +44,7 @@ public class Trie {
 
     /**
      * Builds a trie dictionary using an input file.
-     * Dictionary entries must be in the form "word this is the definiton".
+     * Dictionary entries must be in the form "word (space) this is the definiton".
      * 
      * @param fileName the path to the input file
      * @return true if sucessful, false otherwise
@@ -81,10 +84,12 @@ public class Trie {
         if(search(trie, word)) return false;  // if word already exists in Trie, return false
         TrieNode currentNode = trie.root;
         int index = 0;
-        for(int i = 0; i < word.length(); i++){
-            index = word.charAt(i) - 'a'; // converts char into index
-            if(currentNode.children[index] == null) 
+        for(char c : word.toCharArray()){
+            index = c - 'a'; // converts char into index
+            if(currentNode.children[index] == null){
                 currentNode.children[index] = new TrieNode();
+                currentNode.children[index].parent = currentNode;
+            }
             currentNode = currentNode.children[index];
         }
         currentNode.wordCount++;
@@ -98,7 +103,7 @@ public class Trie {
      * @param currentNode the starting node
      * @return the number of children from the given node
      */
-    private int countChildrren(TrieNode currentNode){
+    private int countChildren(TrieNode currentNode){
         int count = 0;
         for(int i = 0; i < alphabetSize; i++){
             if(currentNode.children[i] != null)
@@ -125,7 +130,7 @@ public class Trie {
             if(currentNode.children[index] == null)
                 return false;
             else{
-                int count = countChildrren(currentNode);
+                int count = countChildren(currentNode);
                 if(count > 1){
                     lastBranchNode = currentNode;
                     lastBranchChar = word.charAt(i);
@@ -133,7 +138,7 @@ public class Trie {
                 currentNode = currentNode.children[index];
             }
         }
-        int count = countChildrren(currentNode);
+        int count = countChildren(currentNode);
         // deleted word is a prefix to other words
         if(count > 0){
             currentNode.definition = null;
@@ -191,12 +196,20 @@ public class Trie {
         return true;
     }
 
-    public static String getRandomWord(Trie trie){
-        String randomWord = "";
-        TrieNode currentNode = trie.root;
-        
-        
-        return randomWord;
+    public String getRandomWord(){
+        TrieNode currentNode = this.root;
+        StringBuilder word = new StringBuilder();
+        while(true){
+            List<TrieNode> possibleNextNodes = new ArrayList<>();
+            for(TrieNode child : currentNode.children){
+                if(child != null) possibleNextNodes.add(child);
+            }
+            if(possibleNextNodes.isEmpty()) break;
+            int randomIndex = new Random().nextInt(possibleNextNodes.size());
+            TrieNode selectedNode = possibleNextNodes.get(randomIndex);
+            currentNode = selectedNode;
+        }
+        return word.length() > 0 ? word.toString() : null;
     }
 
     public static void printTrie(TrieNode node, String word) {
