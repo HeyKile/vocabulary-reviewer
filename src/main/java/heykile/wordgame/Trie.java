@@ -2,6 +2,8 @@
  * Class for Trie data structure to be used w/ word games.
  * Adapted from https://www.geeksforgeeks.org/introduction-to-trie-data-structure-and-algorithm-tutorials/
  * 
+ * Tests can be found in \src\test\java\heykile\wordgame.
+ * 
  * @author Kyle Bello (@HeyKile)
  */
 
