@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Trie {
 
-    final static int alphabetSize = 29; // 26 letters plus dash and space
+    final static int alphabetSize = 29; // 26 letters plus dash, space, and forward slash
     TrieNode root;
     int totalWordCount;
 
@@ -69,7 +69,7 @@ public class Trie {
                 if(spaceIndex > -1){
                     String word = line.substring(0, spaceIndex);
                     String def = line.substring(spaceIndex + 1);
-                    Trie.insert(this, word, def);
+                    Trie.insert(this, word.toLowerCase(), def.toLowerCase());
                 }
                 else{
                     if(this.root == null) return false;
@@ -87,7 +87,7 @@ public class Trie {
     /**
      * Converts letter into index for child array.
      * 
-     * Note: '-' and ' ' have reserved spaces on array.
+     * Note: '-' and ' ' and '/' have reserved spaces on array.
      * 
      * @param c
      * @return index of letter in children array
@@ -95,8 +95,10 @@ public class Trie {
     private static int letterToIndex(char c){
         switch(c){
             case '-':
-                return alphabetSize - 2;
+                return alphabetSize - 3;
             case ' ':
+                return alphabetSize - 2;
+            case '/':
                 return alphabetSize - 1;
             default:
                 return c - 'a';
