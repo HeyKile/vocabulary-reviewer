@@ -16,9 +16,16 @@ public class VocabReviewerTest {
 
     @Before
     public void setUp(){
+        // mocking scanner
         mockScanner = Mockito.mock(Scanner.class);
-        mockTrie = Mockito.mock(Trie.class);
         VocabReviewer.scan = mockScanner;
+        // mocking trie
+        mockTrie = Mockito.mock(Trie.class);
+        Mockito.when(mockTrie.useDictionaryFile(Mockito.anyString())).thenReturn(true);
+        Mockito.when(mockTrie.totalWordCount).thenReturn(10);
+        Mockito.when(mockTrie.getRandomWord()).thenReturn("word");
+        Mockito.when(mockScanner.nextInt()).thenReturn(5);
+        // creating VocabReviewer
         testReview = new VocabReviewer(mockTrie);
     }
 
@@ -30,6 +37,9 @@ public class VocabReviewerTest {
     }
 
     @Test
-    public void 
+    public void TestRunReview(){
+        Mockito.when(mockScanner.nextLine()).thenReturn("y");
+        assertTrue(testReview.runReview());
+    }
     
 }

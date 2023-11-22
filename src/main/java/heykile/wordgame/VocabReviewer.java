@@ -5,32 +5,57 @@ import java.util.*;
 public class VocabReviewer {
 
     VocabReviewer review;
-
     Trie reviewTrie;
     ArrayList<String> userAnswers;
     ArrayList<String> answerKey;
     int numQuestions;
     int numCorrect;
-    static Scanner scan = new Scanner(System.in);
+    Scanner scan;
 
-    public VocabReviewer(){
-        super();
-    }
-
+    // variables for testing
+    List<String> testInputs;
+    int currentLineIndex = 0;
+    
     public VocabReviewer(Trie trie){
-        userAnswers = new ArrayList<>();
-        reviewTrie = trie;
-        reviewTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\cs-dictionary.txt");
-        numQuestions = selectNumQuestions();
-        answerKey = createAnswerKey(this.numQuestions);
-        numCorrect = 0;
+        this(trie, new ArrayList<String>());
+    }
+    
+    public VocabReviewer(Trie trie, List<String> inputLines){
+        this.userAnswers = new ArrayList<>();
+        this.reviewTrie = trie;
+        this.reviewTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\cs-dictionary.txt");
+        this.testInputs = inputLines;
+        if (this.testInputs.isEmpty()) {
+            this.scan = new Scanner(System.in);
+        }
+        this.numQuestions = selectNumQuestions();
+        this.answerKey = createAnswerKey(this.numQuestions);
+        this.numCorrect = 0;
     }
 
-    private boolean runReview(){
+    private String getNextLine(){
+        if(scan != null)
+            return scan.nextLine();
+        else
+            return testInputs.remove(0);
+    }
+
+    private int getNextInt(){
+        if(scan != null){
+            int number = scan.nextInt();
+            return number;
+        }
+        else if(testInputs != null && !testInputs.isEmpty())
+            return Integer.parseInt(testInputs.get(currentLineIndex++));
+        else
+            throw new NoSuchElementException("No more inputs available");
+    }
+
+    public boolean runReview(){
         if(!startReview()) 
             return false;
         System.out.println("Play again? y/n");
-        if(!scan.nextLine().toLowerCase().equals("y")) 
+        if(!getNextLine().toLowerCase().equals("y")) 
             return false;
         return true;
     }
@@ -41,7 +66,7 @@ public class VocabReviewer {
         System.out.println("Welcome to your randomized CS review");
         System.out.println("Number of questions: " + numQuestions);
         System.out.println("Are you ready to begin? y/n");
-        startCondition = scan.nextLine();
+        startCondition = getNextLine();
         if(startCondition.toLowerCase().equals("n")) 
             return false;
         displayQuestions();
@@ -53,7 +78,7 @@ public class VocabReviewer {
             System.out.println("\n=====================================");
             System.out.println("Question " + (i+1) + ": \n" + this.reviewTrie.getDefinition(this.answerKey.get(i)) + "\n");
             System.out.print("Answer: ");
-            this.userAnswers.add(scan.nextLine().toLowerCase());
+            this.userAnswers.add(getNextLine().toLowerCase());
         }
         displayResults();
     }
@@ -94,17 +119,18 @@ public class VocabReviewer {
 
     public int selectNumQuestions(){
         System.out.println("How many questions would you like?");
-        int result = scan.nextInt();
-        scan.nextLine();
+        int result = getNextInt();
+        getNextLine();
         return result;
     }
 
     public static void main(String[] args){
+        VocabReviewer review;
         while(true){
-            VocabReviewer review = new VocabReviewer();
+            review = new VocabReviewer(new Trie());
             if(!review.runReview()) break;
-            review = null;
         }
-        scan.close();
+        review.scan.close();
+        review = null;
     }
 }
