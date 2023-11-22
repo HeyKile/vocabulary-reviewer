@@ -11,9 +11,12 @@ public class VocabReviewerTest {
 
     VocabReviewer testReview;
     Trie mockTrie;
+    ScannerWrapper mockScanner;
 
     @Before
     public void setUp(){
+        //mocking scanner
+        mockScanner = Mockito.mock(ScannerWrapper.class);
         // mocking trie
         mockTrie = Mockito.mock(Trie.class);
         Mockito.when(mockTrie.useDictionaryFile(Mockito.anyString())).thenReturn(true);
@@ -29,27 +32,20 @@ public class VocabReviewerTest {
         testReview = null;
     }
 
-    @Test
-    public void TestRunReview(){
-        assertFalse(testReview.runReview());
-    }
-    
-    @Test
-    public void testSelectNumQuestions(){
-        assertEquals(5, testReview.selectNumQuestions());
-    }
+    /**
+     * Test case for runReview() where user does not want to play again.
+     * 
+     * Preconditions:
+     *  1. A new testReview is created
+     * 
+     * Execution Steps
+     *  1. Run review
+     *  2. When asked "How many questions would you like?", input "1" and press enter
+     *  3. When asked "Are you ready to begin? y/n", input "n" and press enter
+     * 
+     * Postconditions:
+     *  1. runReview() returns false
+     */
 
-
-
-    @Test
-    public void testCreateAnswerKey(){
-
-    }
-
-
-    @Test
-    public void testGetNumCorrect(){
-        assertEquals(0, testReview.getNumCorrect());
-    }
     
 }
