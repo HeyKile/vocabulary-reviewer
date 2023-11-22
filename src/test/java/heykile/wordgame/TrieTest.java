@@ -1,3 +1,9 @@
+/**
+ * Test class for Trie.java.
+ * 
+ * @author Kyle Bello (@HeyKile)
+ */
+
 package heykile.wordgame;
 
 import org.junit.After;
@@ -5,9 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * Tests for Trie.java
- */
 public class TrieTest {
     
     Trie testTrie;
@@ -27,14 +30,11 @@ public class TrieTest {
 
     /**
      * Test case for insert where 2 words are entered into the trie.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
-     * 
      * Execution Steps
      *  1. call insert() with word "pear" with definition "a green fruit"
      *  2. call insert() with word "apple" with definition "a red autumnal classic"
-     * 
      * Postconditions:
      *  1. the number of words in the trie is 2
      */
@@ -48,16 +48,13 @@ public class TrieTest {
 
     /**
      * Test case for insert where a duplicate word is entered into the trie.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call insert() with word "apple" and definition "a red fruit grown in Autumn"
-     * 
      * Postconditions:
      *  1. the number of words in the trie is 3
      */
@@ -69,16 +66,13 @@ public class TrieTest {
 
     /**
      * Test case for search.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call search() with word "banana"
-     * 
      * Postconditions:
      *  1. search() returns true
      */
@@ -89,16 +83,13 @@ public class TrieTest {
 
     /**
      * Test case for search where the word does not exist in the trie.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call search() with word "blueberry"
-     * 
      * Postconditions:
      *  1. search() returns false
      */
@@ -109,16 +100,13 @@ public class TrieTest {
 
     /**
      * Test case for remove() where a word in the trie is deleted.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call remove with word "apple"
-     * 
      * Postconditions:
      *  1. remove() returns true
      *  2. number of words in the trie is 2
@@ -131,17 +119,14 @@ public class TrieTest {
 
     /**
      * Test case for remove() where a word in the trie is deleted that is a prefix to another word.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call insert() with the word "app" and the definition "a small, useable peice of software"
      *  2. call remove() with word "app"
-     * 
      * Postconditions:
      *  1. remove() returns true
      *  2. number of words in the trie is 3
@@ -163,10 +148,8 @@ public class TrieTest {
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call doesPrefixExist() with prefix "straw"
-     * 
      * Postconditions:
      *  1. doesPrefixExist() returns true
      */
@@ -177,16 +160,13 @@ public class TrieTest {
 
     /**
      * Test case for doesPrefixExist() on a prefix for a word that does not exist in the trie.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call doesPrefixExist() with prefix "pe"
-     * 
      * Postconditions:
      *  1. doesPrefixExist() returns false
      */
@@ -197,13 +177,10 @@ public class TrieTest {
 
     /**
      * Test case for useInputDictionary() on a test dictionary txt file.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
-     * 
      * Execution Steps
      *  1. useDictionaryFile() with the filepath to test-dictionary.txt (in the dictionaries file of this repository)
-     * 
      * Postconditions:
      *  1. the number of words in the trie is 5
      *  2. the word "peach" exists in the trie
@@ -218,13 +195,10 @@ public class TrieTest {
 
     /**
      * Test case for useInputDictionary() on a large test dictionary txt file.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
-     * 
      * Execution Steps
      *  1. useDictionaryFile() with the filepath to test-dictionary-large.txt (in the dictionaries file of this repository)
-     * 
      * Postconditions:
      *  1. the number of words in the trie is 100
      *  2. the word "cabbage" exists in the trie
@@ -239,16 +213,13 @@ public class TrieTest {
 
     /**
      * Test case for getRandomWord().
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     * 
      * Execution Steps
      *  1. call getRandomWord() 10 times
-     * 
      * Postconditions:
      *  1. For each of the 10 times, getRandomWord() returns a non-null string
      *  2. For each of the 10 times, getRandomWord() returns a random string in the Trie
@@ -264,13 +235,10 @@ public class TrieTest {
 
     /**
      * Test case for getRandomWord() on test-dictionary-large.txt.
-     * 
      * Preconditions:
      *  1. a new Trie object is created with the dictionary test-dictionary-large.txt
-     * 
      * Execution Steps
      *  1. call getRandomWord() 200 times
-     * 
      * Postconditions:
      *  1. For each of the 200 times, getRandomWord() returns a non-null string
      *  2. For each of the 200 times, getRandomWord() returns a random string in the Trie
@@ -288,17 +256,13 @@ public class TrieTest {
 
     /**
      * Test case for getDefinition() for a word that exists in the trie.
-     * 
      * Preconditions:
      *  1. a new Trie object is created
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
-     *     
-     * 
      * Execution Steps
      *  1. call getWordDefinition() with word "banana"
-     * 
      * Postconditions:
      *  1. getWordDefinition() returns "a popular fruit among primates"
      */
