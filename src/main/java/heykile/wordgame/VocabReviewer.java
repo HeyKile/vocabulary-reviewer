@@ -10,52 +10,22 @@ public class VocabReviewer {
     ArrayList<String> answerKey;
     int numQuestions;
     int numCorrect;
-    Scanner scan;
-
-    // variables for testing
-    List<String> testInputs;
-    int currentLineIndex = 0;
+    ScannerWrapper scan;
     
     public VocabReviewer(Trie trie){
-        this(trie, new ArrayList<String>());
-    }
-    
-    public VocabReviewer(Trie trie, List<String> inputLines){
         this.userAnswers = new ArrayList<>();
         this.reviewTrie = trie;
         this.reviewTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\cs-dictionary.txt");
-        this.testInputs = inputLines;
-        if (this.testInputs.isEmpty()) {
-            this.scan = new Scanner(System.in);
-        }
         this.numQuestions = selectNumQuestions();
         this.answerKey = createAnswerKey(this.numQuestions);
         this.numCorrect = 0;
-    }
-
-    private String getNextLine(){
-        if(scan != null)
-            return scan.nextLine();
-        else
-            return testInputs.remove(0);
-    }
-
-    private int getNextInt(){
-        if(scan != null){
-            int number = scan.nextInt();
-            return number;
-        }
-        else if(testInputs != null && !testInputs.isEmpty())
-            return Integer.parseInt(testInputs.get(currentLineIndex++));
-        else
-            throw new NoSuchElementException("No more inputs available");
     }
 
     public boolean runReview(){
         if(!startReview()) 
             return false;
         System.out.println("Play again? y/n");
-        if(!getNextLine().toLowerCase().equals("y")) 
+        if(!scan.nextLine().toLowerCase().equals("y")) 
             return false;
         return true;
     }
@@ -66,7 +36,7 @@ public class VocabReviewer {
         System.out.println("Welcome to your randomized CS review");
         System.out.println("Number of questions: " + numQuestions);
         System.out.println("Are you ready to begin? y/n");
-        startCondition = getNextLine();
+        startCondition = scan.nextLine();
         if(startCondition.toLowerCase().equals("n")) 
             return false;
         displayQuestions();
@@ -78,7 +48,7 @@ public class VocabReviewer {
             System.out.println("\n=====================================");
             System.out.println("Question " + (i+1) + ": \n" + this.reviewTrie.getDefinition(this.answerKey.get(i)) + "\n");
             System.out.print("Answer: ");
-            this.userAnswers.add(getNextLine().toLowerCase());
+            this.userAnswers.add(scan.nextLine().toLowerCase());
         }
         displayResults();
     }
@@ -119,8 +89,8 @@ public class VocabReviewer {
 
     public int selectNumQuestions(){
         System.out.println("How many questions would you like?");
-        int result = getNextInt();
-        getNextLine();
+        int result = scan.nextInt();
+        scan.nextInt();
         return result;
     }
 
