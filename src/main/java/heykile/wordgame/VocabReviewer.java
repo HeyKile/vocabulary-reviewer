@@ -10,7 +10,7 @@ public class VocabReviewer {
     ArrayList<String> answerKey;
     int numQuestions;
     int numCorrect;
-    ScannerWrapper scan;
+    ScannerWrapper scan = new ScannerWrapper();
     
     public VocabReviewer(Trie trie){
         this.userAnswers = new ArrayList<>();
@@ -90,7 +90,7 @@ public class VocabReviewer {
     public int selectNumQuestions(){
         System.out.println("How many questions would you like?");
         int result = scan.nextInt();
-        scan.nextInt();
+        scan.nextLine();
         return result;
     }
 
