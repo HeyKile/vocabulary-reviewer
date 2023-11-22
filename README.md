@@ -146,6 +146,11 @@ Below are some known issues to be fixed and improvements to be made in the near 
 
    1. Add a changelog (when there are changed to log...)
 
+### Other
+
+   1. Automate test cases
+   2. Finishing writing tests
+
 ## Sources
 
 ### 1. [geeksforgeeks](https://www.geeksforgeeks.org/introduction-to-trie-data-structure-and-algorithm-tutorials/)
