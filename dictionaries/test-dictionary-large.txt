@@ -1,0 +1,100 @@
+apple|A round fruit with red, green, or yellow skin and a crisp texture.
+banana|A long curved fruit that grows in clusters and has soft, sweet flesh.
+carrot|A long, orange vegetable with a sweet taste that grows underground.
+broccoli|A green vegetable with dense clusters of small, edible flower buds.
+tomato|A red or yellowish fruit with juicy flesh, used as a vegetable in cooking.
+avocado|A creamy green fruit with a large pit in the center.
+pineapple|A tropical fruit with a spiky skin and sweet, juicy yellow flesh.
+strawberry|A small, juicy, red fruit with tiny seeds on its surface.
+blueberry|A small, round fruit with a blue or purple skin and sweet flesh.
+watermelon|A large, juicy fruit with sweet, pink flesh and black seeds.
+orange|A round citrus fruit with a tough, orange skin and juicy segments.
+grape|A small, round fruit that grows in clusters and can be green, red, or purple.
+peach|A fuzzy-skinned fruit with juicy, sweet, yellow flesh.
+pear|A sweet, juicy fruit with a thin skin and a shape that's wider at the bottom.
+cherry|A small, round fruit with a red or black skin and a hard pit inside.
+raspberry|A small, red or black edible fruit that grows on bushes.
+mango|A tropical fruit with a sweet, juicy flesh and a large pit in the center.
+papaya|A large tropical fruit with sweet, orange flesh and black seeds.
+lemon|A yellow citrus fruit with a sour taste used for its juice and zest.
+lime|A small, green citrus fruit with a tart flavor used in cooking and drinks.
+grapefruit|A large, round citrus fruit with a yellow or pinkish skin and sour flesh.
+fig|A small, pear-shaped fruit with sweet, soft flesh and many seeds inside.
+kiwi|A small, brown fruit with green flesh and tiny black seeds.
+plum|A round or oval fruit with a smooth skin and sweet or tart flesh.
+apricot|A small, yellow or orange fruit with soft flesh and a large pit inside.
+coconut|A large brown fruit with a hard shell and sweet, white flesh inside.
+cantaloupe|A round melon with a netted rind and sweet orange flesh.
+honeydew|A round melon with a smooth rind and pale green, sweet flesh.
+pomegranate|A round fruit with a tough, leathery skin and juicy red seeds.
+cranberry|A small, tart, red fruit often used in sauces and drinks.
+jicama|A crunchy, slightly sweet root vegetable with a texture similar to an apple, commonly used in salads or eaten raw as a snack.
+guava|A tropical fruit with green or yellow skin and pink or white flesh.
+lychee|A small, round fruit with a rough skin and translucent, white flesh.
+passionfruit|A round or oval fruit with a tough rind and aromatic, seedy pulp.
+tangerine|A small, citrus fruit similar to an orange but with a thinner skin.
+nectarine|A smooth-skinned, peach-like fruit with juicy, sweet flesh.
+dragonfruit|A vibrant, pink or yellow fruit with green scales on its skin.
+starfruit|A yellow fruit with a star-like shape when sliced, with a sweet-tart taste.
+kumquat|A small, orange citrus fruit eaten whole, including the peel.
+persimmon|A sweet, orange fruit with a smooth skin and soft, pulpy flesh.
+radish|A small root vegetable with a peppery taste, often eaten raw.
+cucumber|A cylindrical vegetable with a green skin and mild, watery flesh.
+zucchini|A green summer squash often used in cooking and baking.
+eggplant|A dark purple vegetable with a smooth skin and creamy flesh.
+spinach|A dark, leafy green vegetable often used in salads and cooking.
+lettuce|A leafy green vegetable used as a base for salads.
+kale|A nutrient-rich, dark leafy green often used in salads or as a garnish.
+arugula|A peppery, leafy green used in salads and as a pizza topping.
+cauliflower|A white vegetable with a dense, textured head that can be eaten raw or cooked.
+cabbage|A round, dense vegetable with green or purple leaves often used in coleslaw.
+asparagus|A green or white vegetable with long, slender stalks and a unique flavor.
+bell pepper|A colorful vegetable with a mild flavor, available in various colors.
+durian|A tropical fruit known for its large size, thorn-covered husk, and pungent odor, often described as having a custard-like flesh.
+artichoke|A thistle-like vegetable with edible leaves and a heart in the center.
+celery|A long, crisp stalk vegetable with a mild, slightly salty taste.
+mushroom|A fungus with a fleshy texture and earthy flavor, often used in cooking.
+potato|A starchy tuber with a brown skin and white or yellow flesh.
+sweet potato|A sweet-tasting tuber with orange flesh and a thin skin.
+yam|A starchy tuber with a rough, brown skin and moist, orange flesh.
+quinoa|A grain-like seed that cooks into a fluffy, slightly nutty dish often used as a base in various recipes.
+onion|A bulbous vegetable with layers that add flavor to dishes when cooked.
+garlic|A pungent bulb made up of cloves, used to add flavor to dishes.
+ginger|A knobby root with a spicy, aromatic flavor used in cooking.
+turmeric|A bright yellow root used as a spice and known for its health benefits.
+cinnamon|A sweet, aromatic spice made from the bark of a tree.
+nutmeg|A spice made from the seed of a tropical tree, used in sweet and savory dishes.
+clove|A strong, aromatic spice made from dried flower buds.
+vanilla|A fragrant spice derived from orchid pods, used to flavor desserts.
+basil|An aromatic herb with a sweet, slightly peppery taste, used in cooking.
+cilantro|An herb with a fresh, citrusy flavor, often used in Mexican cuisine.
+parsley|A bright green herb used as a garnish or to add flavor to dishes.
+mint|A fragrant herb with a refreshing, cooling taste, used in teas and cooking.
+thyme|An herb with a subtle, earthy flavor, commonly used in Mediterranean cuisine.
+rosemary|An aromatic herb with a pine-like flavor, often used in roasts and stews.
+sage|An herb with a strong, earthy flavor, used in savory dishes.
+oregano|A pungent herb with a bold, peppery taste, commonly used in Italian cuisine.
+bay leaf|An aromatic leaf used to flavor soups, stews, and sauces.
+dill|An herb with a delicate, feathery leaves and a tangy flavor.
+chive|An herb with slender, green leaves and a mild onion flavor.
+tarragon|An herb with a strong, licorice-like flavor, used in French cuisine.
+lemongrass|An herb with a citrusy flavor used in Asian cooking and teas.
+fennel|An herb with a mild, licorice-like taste, used in cooking and as a tea.
+saffron|A spice derived from crocus flowers, known for its golden color and rich flavor.
+cumin|A warm, aromatic spice used in a variety of cuisines.
+coriander|An aromatic spice made from the seeds of the cilantro plant.
+paprika|A vibrant red spice made from ground dried peppers.
+cardamom|A fragrant spice with a warm, citrusy flavor used in sweet and savory dishes.
+mustard|A pungent spice made from ground mustard seeds.
+horseradish|A spicy root vegetable used as a condiment.
+wasabi|A strong, spicy condiment made from the Japanese horseradish plant.
+miso|A fermented paste made from soybeans, used in Japanese cuisine.
+soy sauce|A savory, salty condiment made from fermented soybeans.
+tahini|A paste made from ground sesame seeds, used in Middle Eastern cuisine.
+hummus|A creamy dip made from mashed chickpeas and tahini.
+pesto|A flavorful sauce made from basil, garlic, pine nuts, and Parmesan cheese.
+salsa|A spicy sauce made from tomatoes, onions, peppers, and spices.
+guacamole|A creamy dip made from mashed avocados, onions, and tomatoes.
+tzatziki|A Greek sauce made from yogurt, cucumber, garlic, and herbs.
+kimchi|A Korean dish made from fermented vegetables, typically cabbage.
+tabbouleh|A Middle Eastern salad made with parsley, mint, bulgur, tomatoes, and onions.
