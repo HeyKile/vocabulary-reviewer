@@ -2,9 +2,9 @@ package heykile.wordgame;
 
 import java.util.*;
 
-public class CSReview {
+public class VocabReviewer {
 
-    CSReview review;
+    VocabReviewer review;
 
     Trie reviewTrie;
     ArrayList<String> userAnswers;
@@ -13,10 +13,13 @@ public class CSReview {
     int numCorrect;
     static Scanner scan = new Scanner(System.in);
 
+    public VocabReviewer(){
+        super();
+    }
 
-    public CSReview(){
+    public VocabReviewer(Trie trie){
         userAnswers = new ArrayList<>();
-        reviewTrie = new Trie();
+        reviewTrie = trie;
         reviewTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\cs-dictionary.txt");
         numQuestions = selectNumQuestions();
         answerKey = createAnswerKey(this.numQuestions);
@@ -46,14 +49,11 @@ public class CSReview {
     }
 
     private void displayQuestions(){
-        String currentAnswer = "";
-        for(int i = 0; i < answerKey.size(); i++) {
+        for(int i = 0; i < this.answerKey.size(); i++) {
             System.out.println("\n=====================================");
-            System.out.println("Question " + (i+1) + ": \n" + reviewTrie.getDefinition(answerKey.get(i)) + "\n");
+            System.out.println("Question " + (i+1) + ": \n" + this.reviewTrie.getDefinition(this.answerKey.get(i)) + "\n");
             System.out.print("Answer: ");
-            currentAnswer = scan.nextLine();
-            currentAnswer.toLowerCase();
-            userAnswers.add(currentAnswer);
+            this.userAnswers.add(scan.nextLine().toLowerCase());
         }
         displayResults();
     }
@@ -61,26 +61,23 @@ public class CSReview {
     private void displayResults(){
         System.out.println("=====================================");
         System.out.println("Here are your results");
-        for(int i = 0; i < userAnswers.size(); i++){
-            System.out.print("Question " + (i+1));
-            System.out.println("\nCorrect answer: " + answerKey.get(i));
-            System.out.println("You answered: " + userAnswers.get(i));
-            if(userAnswers.get(i).equals(answerKey.get(i))){
-                System.out.println("Correct!");
+        int questionNumber = 1;
+        for(String userAnswer : userAnswers){
+            String correctAnswer = answerKey.get(questionNumber - 1);
+            boolean isCorrect = userAnswer.equals(correctAnswer);
+            if(isCorrect)
                 numCorrect++;
-            }
-            else{
-                System.out.println("Incorrect.");
-            }
-            System.out.println("\n");
+            System.out.printf("Question %d\nCorrect answer: %s\nYou answered: %s\n%s\n\n",
+                              questionNumber, correctAnswer, userAnswer, isCorrect ? "Correct!" : "Incorrect.");
+            questionNumber++;
         }
         System.out.println("=====================================");
-        System.out.println("You ansered " + numCorrect + " questions correct!");
+        System.out.printf("You answered %d questions correct!\n", numCorrect);
         System.out.println("=====================================");
     }
 
     public ArrayList<String> createAnswerKey(int numQuestions) {
-        Set<String> answerKey = new HashSet<>();
+        Set<String> answerKey = new LinkedHashSet<>();
         if(numQuestions > reviewTrie.totalWordCount){
             System.out.println("Not enough words in word bank, shrinking number of questions to all words");
             numQuestions = reviewTrie.totalWordCount;
@@ -104,7 +101,7 @@ public class CSReview {
 
     public static void main(String[] args){
         while(true){
-            CSReview review = new CSReview();
+            VocabReviewer review = new VocabReviewer();
             if(!review.runReview()) break;
             review = null;
         }
