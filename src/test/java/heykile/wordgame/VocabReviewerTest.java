@@ -20,7 +20,7 @@ public class VocabReviewerTest {
         // mocking trie
         mockTrie = Mockito.mock(Trie.class);
         Mockito.when(mockTrie.useDictionaryFile(Mockito.anyString())).thenReturn(true);
-        Mockito.when(mockTrie.totalWordCount).thenReturn(10);
+        Mockito.when(mockTrie.getTotalWordCount()).thenReturn(10);
         Mockito.when(mockTrie.getRandomWord()).thenReturn("word");
         // creating VocabReviewer
         testReview = new VocabReviewer(mockTrie);

@@ -17,8 +17,8 @@ import java.io.IOException;
 public class Trie {
 
     final static int alphabetSize = 29; // 26 letters plus dash, space, and forward slash
-    TrieNode root;
-    int totalWordCount;
+    private TrieNode root;
+    private int totalWordCount;
 
     static class TrieNode {
         TrieNode parent;
@@ -54,6 +54,15 @@ public class Trie {
     public Trie(TrieNode node) {
         root = node;
         totalWordCount = 0;
+    }
+
+    /**
+     * Returns the total word count of the trie
+     * 
+     * @return the number of words in the trie
+     */
+    public int getTotalWordCount() { 
+        return this.totalWordCount; 
     }
 
     /**

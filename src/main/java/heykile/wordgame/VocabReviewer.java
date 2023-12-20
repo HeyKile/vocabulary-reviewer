@@ -112,9 +112,10 @@ public class VocabReviewer {
      */
     public ArrayList<String> createAnswerKey(int numQuestions) {
         Set<String> answerKey = new LinkedHashSet<>();
-        if(numQuestions > reviewTrie.totalWordCount){
+        int currentWordCount = reviewTrie.getTotalWordCount();
+        if(numQuestions > currentWordCount){
             System.out.println("Not enough words in word bank, shrinking number of questions to all words");
-            numQuestions = reviewTrie.totalWordCount;
+            numQuestions = currentWordCount;
         }
         while(answerKey.size() < numQuestions){
             answerKey.add(reviewTrie.getRandomWord());

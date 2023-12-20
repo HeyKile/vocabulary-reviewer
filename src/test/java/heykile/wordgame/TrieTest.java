@@ -46,7 +46,7 @@ public class TrieTest {
         testTrie = new Trie();
         Trie.insert(testTrie, "pear", "a green fruit");
         Trie.insert(testTrie, "apple", "a red autumnal classic");
-        assertEquals(testTrie.totalWordCount, 2);
+        assertEquals(testTrie.getTotalWordCount(), 2);
     }
 
     /**
@@ -67,7 +67,7 @@ public class TrieTest {
     @Test
     public void testTrieInsertDuplicate() {
         Trie.insert(testTrie, "apple", "a red fruit grown in Autumn");
-        assertEquals(3, testTrie.totalWordCount);
+        assertEquals(3, testTrie.getTotalWordCount());
     }
 
     /**
@@ -129,7 +129,7 @@ public class TrieTest {
     @Test
     public void testRemove() {
         assertTrue(testTrie.remove(testTrie, "apple"));
-        assertEquals(2, testTrie.totalWordCount);
+        assertEquals(2, testTrie.getTotalWordCount());
     }
 
     /**
@@ -154,7 +154,7 @@ public class TrieTest {
     public void testRemoveDeletePrefix() {
         Trie.insert(testTrie, "app", "a small, useable peice of software");
         assertTrue(testTrie.remove(testTrie, "app"));
-        assertEquals(3, testTrie.totalWordCount);
+        assertEquals(3, testTrie.getTotalWordCount());
         assertTrue(Trie.search(testTrie, "apple"));
     }
 
@@ -215,7 +215,7 @@ public class TrieTest {
     public void testUseInputDictionary() {
         testTrie = new Trie();
         assertTrue(testTrie.useDictionaryFile("dictionaries\\test-dictionary.txt"));
-        assertEquals(5, testTrie.totalWordCount);
+        assertEquals(5, testTrie.getTotalWordCount());
         assertTrue(Trie.search(testTrie, "peach"));
     }
 
@@ -236,7 +236,7 @@ public class TrieTest {
     public void testUseInputDictionaryLarge() {
         testTrie = new Trie();
         assertTrue(testTrie.useDictionaryFile("dictionaries\\food-dictionary.txt"));
-        assertEquals(100, testTrie.totalWordCount);
+        assertEquals(100, testTrie.getTotalWordCount());
         assertTrue(Trie.search(testTrie, "cabbage"));
     }
 
