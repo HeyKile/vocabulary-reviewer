@@ -11,10 +11,8 @@ Follow these steps to install and run the vocabulary-reviewer:
 2. Clone the repository to your local machine using the following command:
 
     ```bash
-    git clone https://github.com/yourusername/vocabulary-reviewer.git
+    git clone https://github.com/YOUR-USERNAME-HERE/vocabulary-reviewer.git
     ```
-
-    Replace `yourusername` with your actual GitHub username.
 
 3. Navigate to the directory where you cloned the repository:
 
@@ -22,21 +20,24 @@ Follow these steps to install and run the vocabulary-reviewer:
     cd vocabulary-reviewer
     ```
 
-4. Compile the Java files:
-   Replace `heykile/wordgame` with the actual path to your `.java` files.
+## Running The Game
 
-    ```bash
-    javac heykile/wordgame/*.java
-    ```
+Compile and run the script
 
-5. Run the `VocabReviewer` class:
-   Replace `heykile.wordgame.VocabReviewer` with the actual fully qualified name of your `VocabReviewer` class.
+For windows systems:
 
-    ```bash
-    java heykile.wordgame.VocabReviewer
-    ```
+```bash
+run.bat
+ ```
 
-Now you should be able to play the vocabulary-reviewer game!
+For unix systems:
+
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+Now you *should* be able to play the vocabulary-reviewer game!
 
 Note: in  `VocabReviewer.java`, remeber to change the filepath to the correct path for your dictionary!
 
@@ -88,27 +89,30 @@ Currently, the only options are `food-dictionary.txt` and `cs-dictionary.txt`. I
 When running `VocabReview`, the user inputs the number of questions they'd like to answer. That many unique words are then chosen from the `Trie` at random from `getRandomWord()` and placed into `answerKey`.
 
 ```java
- public String getRandomWord(){
+    public String getRandomWord() {
         TrieNode currentNode = this.root;
         StringBuilder word = new StringBuilder();
         String lastCompleteWord = null;
         Random random = new Random();
-        while(true){
+        while (true) {
             ArrayList<TrieNode> possibleWordPaths = new ArrayList<>();
             // for all children of current node, get indexes of possible paths
-            for(TrieNode child : currentNode.children){
-                if(child != null)
+            for (TrieNode child : currentNode.children){
+                if (child != null) {
                     possibleWordPaths.add(child);
+                } 
             }
             // no more paths, return lastCompletedWord
-            if(possibleWordPaths.size() == 0) 
+            if (possibleWordPaths.size() == 0) {
                 return lastCompleteWord != null ? lastCompleteWord : null;
+            }  
             // choose child node
             int randomIndex = random.nextInt(possibleWordPaths.size());
             TrieNode selectedNode = possibleWordPaths.get(randomIndex);
             word.append(selectedNode.letter);
-            if(selectedNode.isWord)
+            if (selectedNode.isWord) {
                 lastCompleteWord = word.toString();
+            }
             currentNode = selectedNode;
         }
     }
@@ -130,7 +134,7 @@ Below are some known issues to be fixed and improvements to be made in the near 
 
 ### [Trie.java](./src/main/java/heykile/wordgame/Trie.java)
 
-   1. Just how random is getRandomWord()? From my testing, I believe not very. However, It Works&trade;  for the time being.
+   1. Just how random is getRandomWord()? From my testing, I believe not very. However, It Works&trade; for the time being.
    2. There is absolutely some general refactoring I'd like to do for better performance and space optimization. I would eventually like to change how children are managed for each new TrieNode, using a Linked-List structure instead of a pre-allocated array.
    3. I would like to change how word count is managed, where any node knows how many words are below it at any point in the trie.
    4. Currently, the dictionary file parser is limited and needs expansion.
