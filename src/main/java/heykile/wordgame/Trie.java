@@ -20,7 +20,7 @@ public class Trie {
     TrieNode root;
     int totalWordCount;
 
-    static class TrieNode{
+    static class TrieNode {
         TrieNode parent;
         TrieNode[] children;
         int wordCount;
@@ -28,7 +28,7 @@ public class Trie {
         boolean isWord;
         String definition;
 
-        public TrieNode(){
+        public TrieNode() {
             children = new TrieNode[alphabetSize];
             this.parent = null;
             this.wordCount = 0;
@@ -37,7 +37,7 @@ public class Trie {
             this.definition = null;
         }
 
-        public TrieNode(TrieNode parent, char letter){
+        public TrieNode(TrieNode parent, char letter) {
             children = new TrieNode[alphabetSize];
             this.parent = parent;
             this.wordCount = 0;
@@ -47,11 +47,11 @@ public class Trie {
         }
     }
 
-    public Trie(){
+    public Trie() {
         this(new TrieNode());
     }
 
-    public Trie(TrieNode node){
+    public Trie(TrieNode node) {
         root = node;
         totalWordCount = 0;
     }
@@ -63,23 +63,21 @@ public class Trie {
      * @param fileName the path to the input file
      * @return true if sucessful, false otherwise
      */
-    public boolean useDictionaryFile(String fileName){
+    public boolean useDictionaryFile(String fileName) {
         String line;
-        try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
-            while((line = br.readLine()) != null){
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            while ((line = br.readLine()) != null) {
                 int spaceIndex = line.indexOf("|");
-                if(spaceIndex > -1){
+                if (spaceIndex > -1) {
                     String word = line.substring(0, spaceIndex);
                     String def = line.substring(spaceIndex + 1);
                     Trie.insert(this, word.toLowerCase(), def.toLowerCase());
-                }
-                else{
+                } else {
                     if(this.root == null) return false;
                     else return true;
                 }
             }
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -94,8 +92,8 @@ public class Trie {
      * @param c
      * @return index of letter in children array
      */
-    private static int letterToIndex(char c){
-        switch(c){
+    private static int letterToIndex(char c) {
+        switch (c) {
             case '-':
                 return alphabetSize - 3;
             case ' ':
@@ -118,31 +116,30 @@ public class Trie {
      * @param definition the definition of word
      * @return true if successful new addition, false if otherwise
      */
-    static void insert(Trie trie, String word, String definition){
+    static void insert(Trie trie, String word, String definition) {
         TrieNode currentNode = trie.root;
         int childrenArrIndex = 0;
-        for(char c : word.toCharArray()){
+        for (char c : word.toCharArray()) {
             childrenArrIndex = letterToIndex(c);
             boolean found = false;
-            for(TrieNode child : currentNode.children){
-                if(child != null && child.letter == c){
+            for (TrieNode child : currentNode.children) {
+                if (child != null && child.letter == c) {
                     currentNode = child;
                     found = true;
                     break;
                 }
-            }
-            if(!found){
+            } if(!found) {
                 currentNode.children[childrenArrIndex] = new TrieNode(currentNode, c);
                 currentNode = currentNode.children[childrenArrIndex];
             }
         }
-        if(!currentNode.isWord){
+
+        if (!currentNode.isWord) {
             currentNode.isWord = true;
             currentNode.wordCount++;
             currentNode.definition = definition;
             trie.totalWordCount++;
-        }
-        else{
+        } else {
             System.out.println("Word not added: " + word);
         }
     }
@@ -154,17 +151,19 @@ public class Trie {
      * @param trie the trie to search for the word
      * @param word the word to search for
      */
-    static boolean search(Trie trie, String word){
+    static boolean search(Trie trie, String word) {
         TrieNode currentNode = trie.root;
-        for(char c : word.toCharArray()){
+        for (char c : word.toCharArray()) {
             boolean foundCurrentLetter = false;
-            for(TrieNode child : currentNode.children){
-                if(child != null && child.letter == c){
+            for (TrieNode child : currentNode.children) {
+                if (child != null && child.letter == c) {
                     currentNode = child;
                     foundCurrentLetter = true;
                 }
             }
-            if(!foundCurrentLetter) return false;
+            if (!foundCurrentLetter) {
+                return false;
+            }
         }
         return currentNode.isWord;
     }
@@ -175,17 +174,19 @@ public class Trie {
      * @param word the word to search for
      * @return the ending node of a word if it exists, null otherwise
      */
-    public String getDefinition(String word){
+    public String getDefinition(String word) {
         TrieNode currentNode = this.root;
-        for(char c : word.toCharArray()){
+        for (char c : word.toCharArray()) {
             boolean foundCurrentLetter = false;
-            for(TrieNode child : currentNode.children){
-                if(child != null && child.letter == c){
+            for (TrieNode child : currentNode.children) {
+                if (child != null && child.letter == c) {
                     currentNode = child;
                     foundCurrentLetter = true;
                 }
             }
-            if(!foundCurrentLetter) return null;
+            if (!foundCurrentLetter) {
+                return null;
+            }
         }
         return currentNode.isWord ? currentNode.definition : null;
     }
@@ -196,11 +197,12 @@ public class Trie {
      * @param currentNode the starting node
      * @return the number of children from the given node
      */
-    private int countChildren(TrieNode currentNode){
+    private int countChildren(TrieNode currentNode) {
         int count = 0;
-        for(int i = 0; i < alphabetSize; i++){
-            if(currentNode.children[i] != null)
+        for (int i = 0; i < alphabetSize; i++) {
+            if (currentNode.children[i] != null) {
                 count++;
+            }
         }
         return count;
     }
@@ -212,28 +214,30 @@ public class Trie {
      * @param word the word to be deleted
      * @return true if successful, false if otherwise
      */
-    public boolean remove(Trie trie, String word){
+    public boolean remove(Trie trie, String word) {
         TrieNode currentNode = trie.root;
         Stack<TrieNode> nodeDeletionStack = new Stack<>();
-        for(char c : word.toCharArray()){
+        for (char c : word.toCharArray()) {
             int childrenArrIndex = letterToIndex(c);
-            if(currentNode.children[childrenArrIndex] == null)
+            if (currentNode.children[childrenArrIndex] == null) {
                 return false;
+            }
             currentNode = currentNode.children[childrenArrIndex];
             nodeDeletionStack.push(currentNode);
         }
-        if(!currentNode.isWord)
+        if (!currentNode.isWord) {
             return false;
-        else{
+        } else {
             currentNode.isWord = false;
             currentNode.wordCount--;
             trie.totalWordCount--;
-            while(!nodeDeletionStack.isEmpty()){
+            while (!nodeDeletionStack.isEmpty()) {
                 currentNode = nodeDeletionStack.pop();
-                if(countChildren(currentNode) == 0 && !currentNode.isWord)
+                if (countChildren(currentNode) == 0 && !currentNode.isWord) {
                     currentNode.parent.children[letterToIndex(currentNode.letter)] = null;
-                else
+                } else {
                     break;
+                }   
             }
         }
         return true;
@@ -246,47 +250,52 @@ public class Trie {
      * @param currentPrefix the current prefix 
      * @return true if a word exists after the current prefix, false if otherwise
      */
-    static boolean doesPrefixExist(Trie trie, String currentPrefix){
+    static boolean doesPrefixExist(Trie trie, String currentPrefix) {
         TrieNode currentNode = trie.root;
         int index = 0;
-        for(char c : currentPrefix.toCharArray()){
+        for (char c : currentPrefix.toCharArray()) {
             index = c - 'a'; // converts char into index
-            if(currentNode.children[index] == null) 
+            if (currentNode.children[index] == null) {
                 return false;
+            }    
             currentNode = currentNode.children[index];
         }
         return true;
     }
 
 
-    public String getRandomWord(){
+    public String getRandomWord() {
         TrieNode currentNode = this.root;
         StringBuilder word = new StringBuilder();
         String lastCompleteWord = null;
         Random random = new Random();
-        while(true){
+        while (true) {
             ArrayList<TrieNode> possibleWordPaths = new ArrayList<>();
             // for all children of current node, get indexes of possible paths
-            for(TrieNode child : currentNode.children){
-                if(child != null)
+            for (TrieNode child : currentNode.children){
+                if (child != null) {
                     possibleWordPaths.add(child);
+                } 
             }
             // no more paths, return lastCompletedWord
-            if(possibleWordPaths.size() == 0) 
+            if (possibleWordPaths.size() == 0) {
                 return lastCompleteWord != null ? lastCompleteWord : null;
+            }  
             // choose child node
             int randomIndex = random.nextInt(possibleWordPaths.size());
             TrieNode selectedNode = possibleWordPaths.get(randomIndex);
             word.append(selectedNode.letter);
-            if(selectedNode.isWord)
+            if (selectedNode.isWord) {
                 lastCompleteWord = word.toString();
+            }
             currentNode = selectedNode;
         }
     }
 
     public static void printTrie(TrieNode node, String word) {
-        if (node == null) return;
-    
+        if (node == null) {
+            return;
+        }
         // If the node represents the end of a word, print it
         if (node.wordCount > 0) {
             System.out.println(word);
