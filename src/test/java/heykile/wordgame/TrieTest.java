@@ -1,5 +1,6 @@
 package heykile.wordgame;
 
+import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,17 +12,19 @@ import static org.junit.Assert.*;
 public class TrieTest {
     
     Trie testTrie;
+    Random rand;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         testTrie = new Trie();
         Trie.insert(testTrie, "apple", "a red fruit grown in Autumn");
         Trie.insert(testTrie, "banana", "a popular fruit among primates");
         Trie.insert(testTrie, "strawberry", "funnily enough, not a berry");
+        rand = new Random();
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         testTrie = null;
     }
 
@@ -39,7 +42,7 @@ public class TrieTest {
      *  1. the number of words in the trie is 2
      */
     @Test
-    public void testTrieInsert(){
+    public void testTrieInsert() {
         testTrie = new Trie();
         Trie.insert(testTrie, "pear", "a green fruit");
         Trie.insert(testTrie, "apple", "a red autumnal classic");
@@ -62,7 +65,7 @@ public class TrieTest {
      *  1. the number of words in the trie is 3
      */
     @Test
-    public void testTrieInsertDuplicate(){
+    public void testTrieInsertDuplicate() {
         Trie.insert(testTrie, "apple", "a red fruit grown in Autumn");
         assertEquals(3, testTrie.totalWordCount);
     }
@@ -83,7 +86,7 @@ public class TrieTest {
      *  1. search() returns true
      */
     @Test
-    public void testSearch(){
+    public void testSearch() {
         assertTrue(Trie.search(testTrie, "banana"));
     }
 
@@ -103,7 +106,7 @@ public class TrieTest {
      *  1. search() returns false
      */
     @Test
-    public void testSearchWordDNE(){
+    public void testSearchWordDNE() {
         assertFalse(Trie.search(testTrie, "blueberry"));
     }
 
@@ -124,7 +127,7 @@ public class TrieTest {
      *  2. number of words in the trie is 2
      */
     @Test
-    public void testRemove(){
+    public void testRemove() {
         assertTrue(testTrie.remove(testTrie, "apple"));
         assertEquals(2, testTrie.totalWordCount);
     }
@@ -148,7 +151,7 @@ public class TrieTest {
      *  3. "apple" still exists in the trie
      */
     @Test
-    public void testRemoveDeletePrefix(){
+    public void testRemoveDeletePrefix() {
         Trie.insert(testTrie, "app", "a small, useable peice of software");
         assertTrue(testTrie.remove(testTrie, "app"));
         assertEquals(3, testTrie.totalWordCount);
@@ -171,7 +174,7 @@ public class TrieTest {
      *  1. doesPrefixExist() returns true
      */
     @Test
-    public void testDoesPrefixExist(){
+    public void testDoesPrefixExist() {
         assertTrue(Trie.doesPrefixExist(testTrie, "straw"));
     }
 
@@ -191,7 +194,7 @@ public class TrieTest {
      *  1. doesPrefixExist() returns false
      */
     @Test
-    public void testDoesPrefixExistPrefixDNE(){
+    public void testDoesPrefixExistPrefixDNE() {
         assertFalse(Trie.doesPrefixExist(testTrie, "pe"));
     }
 
@@ -209,9 +212,9 @@ public class TrieTest {
      *  2. the word "peach" exists in the trie
      */
     @Test
-    public void testUseInputDictionary(){
+    public void testUseInputDictionary() {
         testTrie = new Trie();
-        assertTrue(testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary.txt"));
+        assertTrue(testTrie.useDictionaryFile("dictionaries\\test-dictionary.txt"));
         assertEquals(5, testTrie.totalWordCount);
         assertTrue(Trie.search(testTrie, "peach"));
     }
@@ -223,16 +226,16 @@ public class TrieTest {
      *  1. a new Trie object is created
      * 
      * Execution Steps
-     *  1. useDictionaryFile() with the filepath to test-dictionary-large.txt (in the dictionaries file of this repository)
+     *  1. useDictionaryFile() with the filepath to food-dictionary.txt (in the dictionaries file of this repository)
      * 
      * Postconditions:
      *  1. the number of words in the trie is 100
      *  2. the word "cabbage" exists in the trie
      */
     @Test
-    public void testUseInputDictionaryLarge(){
+    public void testUseInputDictionaryLarge() {
         testTrie = new Trie();
-        assertTrue(testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary-large.txt"));
+        assertTrue(testTrie.useDictionaryFile("dictionaries\\food-dictionary.txt"));
         assertEquals(100, testTrie.totalWordCount);
         assertTrue(Trie.search(testTrie, "cabbage"));
     }
@@ -245,17 +248,19 @@ public class TrieTest {
      *  2. trie object contains the word "apple" with definition "a red fruit grown in Autumn"
      *  3. trie object contains the word "banana" with definition "a popular fruit among primates"
      *  4. trie object contains the word "strawberry" with definition "funnily enough, not a berry"
+     *  5. a new random object is created
      * 
      * Execution Steps
-     *  1. call getRandomWord() 10 times
+     *  1. call getRandomWord() at least 2 times and at most 20 times
      * 
      * Postconditions:
-     *  1. For each of the 10 times, getRandomWord() returns a non-null string
-     *  2. For each of the 10 times, getRandomWord() returns a random string in the Trie
+     *  1. For each repeat, getRandomWord() returns a non-null string
+     *  2. For each repeat, getRandomWord() returns a random string in the Trie
      */
     @Test
-    public void testGetRandomWord(){
-        for(int i = 0; i < 10; i++){
+    public void testGetRandomWord() {
+        int numberOfRepeats = rand.nextInt(19) + 2;
+        for (int i = 0; i < numberOfRepeats; i++) {
             String result = testTrie.getRandomWord();
             assertNotNull(result);
             assertTrue(Trie.search(testTrie, result));
@@ -263,10 +268,10 @@ public class TrieTest {
     }
 
     /**
-     * Test case for getRandomWord() on test-dictionary-large.txt.
+     * Test case for getRandomWord() on food-dictionary.txt
      * 
      * Preconditions:
-     *  1. a new Trie object is created with the dictionary test-dictionary-large.txt
+     *  1. a new Trie object is created with the dictionary food-dictionary.txt
      * 
      * Execution Steps
      *  1. call getRandomWord() 200 times
@@ -276,10 +281,10 @@ public class TrieTest {
      *  2. For each of the 200 times, getRandomWord() returns a random string in the Trie
      */
     @Test
-    public void testGetRandomWordLargeDictionary(){
+    public void testGetRandomWordLargeDictionary() {
         testTrie = new Trie();
-        testTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\test-dictionary-large.txt");
-        for(int i = 0; i < 200; i++){
+        testTrie.useDictionaryFile("dictionaries\\food-dictionary.txt");
+        for (int i = 0; i < 200; i++) {
             String result = testTrie.getRandomWord();
             assertNotNull(result);
             assertTrue(Trie.search(testTrie, result));
@@ -303,7 +308,7 @@ public class TrieTest {
      *  1. getWordDefinition() returns "a popular fruit among primates"
      */
     @Test
-    public void testGetDefinition(){
+    public void testGetDefinition() {
         assertEquals("a popular fruit among primates", testTrie.getDefinition("banana"));
     }
     
