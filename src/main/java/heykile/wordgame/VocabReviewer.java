@@ -24,7 +24,7 @@ public class VocabReviewer {
     public VocabReviewer(Trie trie){
         this.userAnswers = new ArrayList<>();
         this.reviewTrie = trie;
-        this.reviewTrie.useDictionaryFile("E:\\Coding Proejcts\\word-game\\wordgame\\dictionaries\\cs-dictionary.txt");
+        this.reviewTrie.useDictionaryFile("C:\\Coding Projects\\vocabulary-reviewer\\dictionaries\\cs-dictionary.txt");
         this.numQuestions = selectNumQuestions();
         this.answerKey = createAnswerKey(this.numQuestions);
         this.numCorrect = 0;
