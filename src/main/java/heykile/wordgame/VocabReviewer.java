@@ -21,7 +21,7 @@ public class VocabReviewer {
     int numCorrect;
     ScannerWrapper scan = new ScannerWrapper(); // uses wrapper class for testing
     
-    public VocabReviewer(Trie trie){
+    public VocabReviewer(Trie trie) {
         this.userAnswers = new ArrayList<>();
         this.reviewTrie = trie;
         this.reviewTrie.useDictionaryFile("C:\\Coding Projects\\vocabulary-reviewer\\dictionaries\\cs-dictionary.txt");
@@ -37,12 +37,14 @@ public class VocabReviewer {
      *
      * @return true if the user chooses to play again, false otherwise
      */
-    public boolean runReview(){
-        if(!startReview()) 
+    public boolean runReview() {
+        if (!startReview()) {
             return false;
+        }
         System.out.println("Play again? y/n");
-        if(!scan.nextLine().toLowerCase().equals("y")) 
+        if (!scan.nextLine().toLowerCase().equals("y")) {
             return false;
+        }
         return true;
     }
 
@@ -59,8 +61,9 @@ public class VocabReviewer {
         System.out.println("Number of questions: " + numQuestions);
         System.out.println("Are you ready to begin? y/n");
         startCondition = scan.nextLine();
-        if(startCondition.toLowerCase().equals("n")) 
+        if (startCondition.toLowerCase().equals("n")) {
             return false;
+        }
         displayQuestions();
         return true;
     }
@@ -70,7 +73,7 @@ public class VocabReviewer {
      * displays the definition and prompts the user for an answer.
      */
     private void displayQuestions(){
-        for(int i = 0; i < this.answerKey.size(); i++) {
+        for (int i = 0; i < this.answerKey.size(); i++) {
             System.out.println("\n=====================================");
             System.out.println("Question " + (i+1) + ": \n" + this.reviewTrie.getDefinition(this.answerKey.get(i)) + "\n");
             System.out.print("Answer: ");
@@ -83,15 +86,16 @@ public class VocabReviewer {
      * Displays the results of the review. For each question, the method 
      * displays whether the user's answer was correct or not.
      */
-    private void displayResults(){
+    private void displayResults() {
         System.out.println("=====================================");
         System.out.println("Here are your results");
         int questionNumber = 1;
-        for(String userAnswer : userAnswers){
+        for (String userAnswer : userAnswers) {
             String correctAnswer = answerKey.get(questionNumber - 1);
             boolean isCorrect = userAnswer.equals(correctAnswer);
-            if(isCorrect)
+            if (isCorrect) {
                 numCorrect++;
+            }
             System.out.printf("Question %d\nCorrect answer: %s\nYou answered: %s\n%s\n\n",
                               questionNumber, correctAnswer, userAnswer, isCorrect ? "Correct!" : "Incorrect.");
             questionNumber++;
@@ -113,17 +117,17 @@ public class VocabReviewer {
     public ArrayList<String> createAnswerKey(int numQuestions) {
         Set<String> answerKey = new LinkedHashSet<>();
         int currentWordCount = reviewTrie.getTotalWordCount();
-        if(numQuestions > currentWordCount){
+        if (numQuestions > currentWordCount) {
             System.out.println("Not enough words in word bank, shrinking number of questions to all words");
             numQuestions = currentWordCount;
         }
-        while(answerKey.size() < numQuestions){
+        while (answerKey.size() < numQuestions) {
             answerKey.add(reviewTrie.getRandomWord());
         }
         return new ArrayList<>(answerKey);
     }
 
-    public int getNumCorrect(){
+    public int getNumCorrect() {
         return numCorrect;
     }
 
@@ -132,18 +136,20 @@ public class VocabReviewer {
      *
      * @return the number of questions selected by the user
      */
-    public int selectNumQuestions(){
+    public int selectNumQuestions() {
         System.out.println("How many questions would you like?");
         int result = scan.nextInt();
         scan.nextLine();
         return result;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         VocabReviewer review;
-        while(true){
+        while (true) {
             review = new VocabReviewer(new Trie());
-            if(!review.runReview()) break;
+            if (!review.runReview()) {
+                break;
+            }
         }
         review.scan.close();
         review = null;
