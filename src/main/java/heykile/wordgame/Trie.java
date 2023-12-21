@@ -21,6 +21,7 @@ public class Trie {
     private int totalWordCount;
 
     static class TrieNode {
+        
         TrieNode parent;
         TrieNode[] children;
         int wordCount;
